@@ -139,13 +139,12 @@ export default function CreateProduct() {
                             <div className="col-span-3 md:col-span-2 grid w-full max-w-sm items-center gap-1.5">
                                 <Label htmlFor="expire_date">Expire date</Label>
                                 <Input
-                                    type="text"
+                                    type="date"
                                     id="expire_date"
                                     value={data.expire_date}
                                     onChange={(e) =>
                                         setData("expire_date", e.target.value)
                                     }
-                                    placeholder="Product expire_date"
                                 />
                                 <InputError message={errors.name} />
                             </div>

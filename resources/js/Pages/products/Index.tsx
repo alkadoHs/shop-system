@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/table";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { dateFormat, numberFormat } from "@/lib/utils";
-import { Head } from "@inertiajs/react";
-import { PlusIcon } from "lucide-react";
+import { Head, router } from "@inertiajs/react";
 import CreateProduct from "./actions/create-product";
+import DeleteProduct from "./actions/delete-product";
+import { ChangeEvent } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 export interface Product {
     id: number;
@@ -28,20 +30,35 @@ export interface Product {
 }
 
 const Products = ({ products }: { products: Product[] }) => {
+    const onSearchChange = useDebouncedCallback(
+        (value?: ChangeEvent<HTMLInputElement>) => {
+            if (value && value?.target.value) {
+                router.visit(route("products.index"), {
+                    data: { search: value.target.value },
+                    only: ["products"],
+                    preserveScroll: true,
+                    preserveState: true,
+                });
+            } else {
+                router.visit(route("products.index"))
+            }
+        },
+        1000
+    );
     return (
         <Authenticated header={<h2>Products</h2>}>
             <Head title="Products" />
 
-            <main className="p-4">
-                <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+            <main className="p-4 max-w-full">
+                <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-2">
                     Products
                 </h3>
                 <div className="flex justify-between gap-4 mb-4 items-center">
-                  <Input type="search" className="max-w-sm" placeholder="Search products..." />
+                  <Input type="search" className="max-w-sm" onChange={onSearchChange} placeholder="Search products..." />
                   <CreateProduct />
                 </div>
 
-                <div className="overflow-y-auto">
+                <div className="w-full overflow-x-auto">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -93,15 +110,15 @@ const Products = ({ products }: { products: Product[] }) => {
                                         {numberFormat(product.stock_alert)}
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        {dateFormat(
+                                        {
                                             product.expire_date
-                                                ? product.expire_date
+                                                ? dateFormat(product.expire_date)
                                                 : "DD/MM/YYYY"
-                                        )}
+                                        }
                                     </TableCell>
                                     <TableCell className="flex items-center gap-2">
-                                        <ActionButton variant="update" />
-                                        <ActionButton variant="delete" />
+                                        <ActionButton onClick={() => router.visit(route('products.edit', product.id))} variant="update" />
+                                        <DeleteProduct product={product} />
                                     </TableCell>
                                 </TableRow>
                             ))}
