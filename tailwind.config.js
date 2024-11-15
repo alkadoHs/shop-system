@@ -98,5 +98,5 @@ export default {
     	}
     },
 
-    plugins: [forms, require("tailwindcss-animate")],
+    plugins: [require("tailwindcss-animate")],
 };

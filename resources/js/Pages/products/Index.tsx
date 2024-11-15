@@ -16,6 +16,8 @@ import CreateProduct from "./actions/create-product";
 import DeleteProduct from "./actions/delete-product";
 import { ChangeEvent } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 export interface Product {
     id: number;
@@ -49,20 +51,25 @@ const Products = ({ products }: { products: Product[] }) => {
         <Authenticated header={<h2>Products</h2>}>
             <Head title="Products" />
 
-            <main className="p-4 max-w-full">
-                <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-2">
+            <div className="max-w-full">
+                <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-2 px-6">
                     Products
                 </h3>
-                <div className="flex justify-between gap-4 mb-4 items-center">
+
+                <Separator />
+
+                <div className="flex justify-between gap-4 my-2 items-center px-6">
                   <Input type="search" className="max-w-sm" onChange={onSearchChange} placeholder="Search products..." />
                   <CreateProduct />
                 </div>
 
-                <div className="w-full overflow-x-auto">
+                <Separator />
+
+                <div className="w-full overflow-x-auto whitespace-nowrap">
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>S/N</TableHead>
+                                <TableHead className="pl-6">S/N</TableHead>
                                 <TableHead>NAME</TableHead>
                                 <TableHead className="text-right">
                                     STOCK
@@ -89,7 +96,7 @@ const Products = ({ products }: { products: Product[] }) => {
                         <TableBody>
                             {products.map((product, index) => (
                                 <TableRow key={product.id}>
-                                    <TableCell>{index + 1}</TableCell>
+                                    <TableCell className="pl-6">{index + 1}</TableCell>
                                     <TableCell>{product.name}</TableCell>
                                     <TableCell className="text-right">
                                         {numberFormat(product.stock)}
@@ -116,7 +123,7 @@ const Products = ({ products }: { products: Product[] }) => {
                                                 : "DD/MM/YYYY"
                                         }
                                     </TableCell>
-                                    <TableCell className="flex items-center gap-2">
+                                    <TableCell className="flex items-center gap-2 pr-6">
                                         <ActionButton onClick={() => router.visit(route('products.edit', product.id))} variant="update" />
                                         <DeleteProduct product={product} />
                                     </TableCell>
@@ -125,7 +132,7 @@ const Products = ({ products }: { products: Product[] }) => {
                         </TableBody>
                     </Table>
                 </div>
-            </main>
+            </div>
         </Authenticated>
     );
 };

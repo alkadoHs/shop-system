@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\RemoveCommaFromInput;
@@ -35,5 +36,10 @@ Route::prefix('setup')->middleware(['auth', 'verified'])->group(function () {
 Route::resource('products', ProductController::class)
     ->only(['index', 'create', 'edit', 'update', 'store', 'destroy'])
     ->middleware(['auth', 'verified', RemoveCommaFromInput::class]);
+
+
+Route::prefix('pos')->middleware(['auth', 'verified', RemoveCommaFromInput::class])->group(function () {
+    Route::get('dashboard', [PosController::class,'index'])->name('pos.index');
+});
 
 require __DIR__.'/auth.php';

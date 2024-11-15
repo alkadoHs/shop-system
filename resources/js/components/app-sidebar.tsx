@@ -137,8 +137,8 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
+      name: "Point of sale",
+      url: route('pos.index'),
       icon: Frame,
     },
     {

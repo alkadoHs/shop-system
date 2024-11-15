@@ -5,7 +5,7 @@ interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 }
 
 const ActionButton: React.FC<ActionButtonProps> = ({ variant, ...props }) => {
-  const iconStyles = 'w-4 h-4 inline-block mr-1';
+  const iconStyles = 'w-4 h-4 inline-block';
   const baseStyles =
     'inline-flex items-center px-2 py-1 text-sm font-medium rounded transition-colors';
   
@@ -51,7 +51,6 @@ const ActionButton: React.FC<ActionButtonProps> = ({ variant, ...props }) => {
           />
         </svg>
       )}
-      {variant === 'delete' ? 'Delete' : 'Update'}
     </button>
   );
 };
