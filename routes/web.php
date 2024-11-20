@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
@@ -40,6 +41,13 @@ Route::resource('products', ProductController::class)
 
 Route::prefix('pos')->middleware(['auth', 'verified', RemoveCommaFromInput::class])->group(function () {
     Route::get('dashboard', [PosController::class,'index'])->name('pos.index');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('carts',  [CartController::class, 'index'])->name('carts.index');
+    Route::post('carts/{product}',  [CartController::class, 'add'])->name('carts.add');
+    Route::patch('carts/{item}',  [CartController::class, 'update'])->name('carts.update');
+    Route::delete('carts/{item}',  [CartController::class, 'remove'])->name('carts.remove');
 });
 
 require __DIR__.'/auth.php';

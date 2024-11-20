@@ -1,5 +1,5 @@
 import React, { FormEventHandler } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -200,8 +200,9 @@ export default function CreateProduct({ product }: { product: Product }) {
                                     type="button"
                                     variant={"outline"}
                                     disabled={processing}
+                                    asChild
                                 >
-                                    Cancel
+                                    <Link href={route('products.index')}>Cancel</Link>
                                 </Button>
                                 <Button disabled={processing}>
                                     {processing ? (

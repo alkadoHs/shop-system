@@ -142,8 +142,8 @@ const data = {
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
+      name: "Products",
+      url: route('products.index'),
       icon: PieChart,
     },
     {

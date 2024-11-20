@@ -15,6 +15,8 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { PlusCircle, PlusIcon } from "lucide-react";
+import { ResponsiveModal, ResponsiveModalContent, ResponsiveModalFooter, ResponsiveModalHeader, ResponsiveModalTrigger } from "@/components/ui/responsoive-model";
+import { LoadingButton } from "@/components/ui/loanding-button";
 
 export default function CreateProduct() {
     const [open, setOpen] = React.useState(false);
@@ -43,19 +45,19 @@ export default function CreateProduct() {
 
     return (
         <>
-            <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger>
+            <ResponsiveModal open={open} onOpenChange={setOpen}>
+                <ResponsiveModalTrigger>
                     <Button>
                         <PlusIcon className="size-4 mr-1" />
                         <span className="hidden lg:inline-block">
                             Create Product
                         </span>
                     </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                    <DialogHeader className="flex flex-col gap-1">
+                </ResponsiveModalTrigger>
+                <ResponsiveModalContent className="max-w-4xl">
+                    <ResponsiveModalHeader className="flex flex-col gap-1">
                         <DialogTitle>Create product</DialogTitle>
-                    </DialogHeader>
+                    </ResponsiveModalHeader>
                     <form onSubmit={onsubmit}>
                         <div className="grid grid-cols-6 gap-4">
                             <div className="col-span-6 md:col-span-3 grid w-full max-w-sm items-center gap-1.5">
@@ -80,7 +82,7 @@ export default function CreateProduct() {
                                     onChange={(e) =>
                                         setData("buy_price", e.target.value)
                                     }
-                                    placeholder="Product buy_price"
+                                    placeholder=""
                                     allowLeadingZeros
                                     allowNegative={false}
                                     thousandSeparator=","
@@ -98,7 +100,7 @@ export default function CreateProduct() {
                                     onChange={(e) =>
                                         setData("sale_price", e.target.value)
                                     }
-                                    placeholder="Product sale_price"
+                                    placeholder=""
                                     allowLeadingZeros
                                     allowNegative={false}
                                     thousandSeparator=","
@@ -129,7 +131,7 @@ export default function CreateProduct() {
                                     onChange={(e) =>
                                         setData("stock_alert", e.target.value)
                                     }
-                                    placeholder="Product stock_alert"
+                                    placeholder=""
                                     allowLeadingZeros
                                     allowNegative={false}
                                     thousandSeparator=","
@@ -161,7 +163,7 @@ export default function CreateProduct() {
                                     onChange={(e) =>
                                         setData("whole_stock", e.target.value)
                                     }
-                                    placeholder="Product whole_sale"
+                                    placeholder=""
                                     allowLeadingZeros
                                     allowNegative={false}
                                     thousandSeparator=","
@@ -179,7 +181,7 @@ export default function CreateProduct() {
                                     onChange={(e) =>
                                         setData("whole_price", e.target.value)
                                     }
-                                    placeholder="Product whole_price"
+                                    placeholder=""
                                     allowLeadingZeros
                                     allowNegative={false}
                                     thousandSeparator=","
@@ -187,7 +189,7 @@ export default function CreateProduct() {
                                 <InputError message={errors.whole_price} />
                             </div>
                         </div>
-                        <DialogFooter>
+                        <ResponsiveModalFooter className="gap-4">
                             <Button
                                 type="button"
                                 variant={"outline"}
@@ -195,13 +197,13 @@ export default function CreateProduct() {
                             >
                                 Cancel
                             </Button>
-                            <Button type="submit" disabled={processing}>
+                            <LoadingButton loading={processing} type="submit" disabled={processing} >
                                 Create
-                            </Button>
-                        </DialogFooter>
+                            </LoadingButton>
+                        </ResponsiveModalFooter>
                     </form>
-                </DialogContent>
-            </Dialog>
+                </ResponsiveModalContent>
+            </ResponsiveModal>
         </>
     );
 }

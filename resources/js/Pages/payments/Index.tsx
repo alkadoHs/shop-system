@@ -11,6 +11,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { CreatePayment } from "./actions/create-payment";
 import DeletePayment from "./actions/delete-payment";
+import { Card } from "@/components/ui/card";
 
 export interface Payment {
     id: number;
@@ -23,7 +24,7 @@ const Payments = ({ payments }: { payments: Payment[] }) => {
         <Authenticated header={<h2>Payment methods</h2>}>
             <Head title="Payment methods" />
 
-            <main className="p-4">
+            <Card className="p-4">
                 <div className="flex justify-between gap-4 mb-4 items-center">
                   <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                       Payment Metthods
@@ -31,8 +32,8 @@ const Payments = ({ payments }: { payments: Payment[] }) => {
                   <CreatePayment />
                 </div>
 
-                <div className="overflow-x-auto whitespace-nowrap">
-                    <Table className="border">
+                <Card className="overflow-x-auto whitespace-nowrap">
+                    <Table>
                         <TableHeader>
                             <TableRow>
                                 <TableHead>S/N</TableHead>
@@ -54,8 +55,8 @@ const Payments = ({ payments }: { payments: Payment[] }) => {
                             ))}
                         </TableBody>
                     </Table>
-                </div>
-            </main>
+                </Card>
+            </Card>
         </Authenticated>
     );
 };
