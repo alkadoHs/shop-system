@@ -1,5 +1,4 @@
 import ActionButton from "@/components/action-button";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
     Table,
@@ -18,10 +17,7 @@ import { ChangeEvent } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "@/components/mode-toggle";
 import { Badge } from "@/components/ui/badge";
-import DatetimePickerDemo from "@/components/DemoDate";
-import MultipleSelectorDemo from "@/components/mult-select-demo";
 
 export interface Product {
     id: number;

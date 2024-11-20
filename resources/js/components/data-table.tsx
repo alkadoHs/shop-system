@@ -31,7 +31,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <Card>
+    <Card className="overflow-x-auto">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

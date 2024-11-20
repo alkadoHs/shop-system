@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
@@ -49,5 +51,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('carts/{item}',  [CartController::class, 'update'])->name('carts.update');
     Route::delete('carts/{item}',  [CartController::class, 'remove'])->name('carts.remove');
 });
+
+Route::resource('customers', CustomerController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('orders', OrderController::class)
+    ->only(['index', 'store', 'destroy', 'update'])
+    ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

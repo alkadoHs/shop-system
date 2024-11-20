@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,8 +19,10 @@ class PosController extends Controller
         $cartItems = auth()->user()->cartItems()->with('product')->get();
 
         return Inertia::render("pos/Index", [
-            "products" => fn () => Product::limit(13)->get(),
+            "products" => fn () => Product::limit(10)->get(),
             "cartItems" => $cartItems,
+            "paymentMethods" => fn () => PaymentMethod::get(),
+            "total" => auth()->user()->cartItems()->get()->reduce(fn ($total, CartItem $item) => $total + ($item->qty * $item->price), 0),
         ]);
     }
 

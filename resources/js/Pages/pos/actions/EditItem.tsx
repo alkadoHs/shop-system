@@ -31,7 +31,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
     return (
         <div className="font-medium">
             <NumericFormat
-                className="text-right max-w-20"
+                className="text-right max-w-20 min-w-20"
                 customInput={Input}
                 defaultValue={item.qty}
                 onChange={handleChange}

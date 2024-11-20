@@ -26,6 +26,7 @@ class CartController extends Controller
             $cart->cartItems()->create([
                 'product_id' => $product->id,
                 'price' => $product->sale_price,
+                'buy_price' => $product->buy_price,
                 'qty' => 1,
             ]);
         }
