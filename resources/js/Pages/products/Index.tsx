@@ -63,31 +63,31 @@ const Products = ({ products }: { products: Product[] }) => {
                   <CreateProduct />
                 </div>
 
-                <Card className="w-full overflow-x-auto whitespace-nowrap">
+                <div className="w-full overflow-x-auto whitespace-nowrap border bg-card">
                     <Table>
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="pl-6">S/N</TableHead>
-                                <TableHead>NAME</TableHead>
+                                <TableHead>Name</TableHead>
                                 <TableHead className="text-right">
-                                    STOCK
+                                    Stock
                                 </TableHead>
                                 <TableHead className="text-right">
-                                    BUY PRICE
+                                    Buy price
                                 </TableHead>
                                 <TableHead className="text-right">
-                                    SALE PRICE
+                                    Selling price
                                 </TableHead>
                                 <TableHead className="text-right">
-                                    WHOLE PRICE
+                                    Whole price
                                 </TableHead>
                                 <TableHead className="text-right">
-                                    WHOLE STOCK
+                                    Whole stock
                                 </TableHead>
                                 <TableHead className="text-right">
-                                    STOCK ALERT
+                                    Stock alert
                                 </TableHead>
-                                <TableHead>EXPIRE DATE</TableHead>
+                                <TableHead>Expire date</TableHead>
                                 <TableHead>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -137,7 +137,7 @@ const Products = ({ products }: { products: Product[] }) => {
                             ))}
                         </TableBody>
                     </Table>
-                </Card>
+                </div>
             </Card>
         </Authenticated>
     );

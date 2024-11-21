@@ -22,9 +22,9 @@ class StoreExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'branch_id' => 'required|exists:branches,id',
-            'user_id' => 'required|exists:users,id',
             'payment_method_id' => 'required|exists:payment_methods,id',
+            'item' => 'required|string|max:255',
+            'cost' => 'required|numeric|max:9999999999',
         ];
     }
 }

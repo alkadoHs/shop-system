@@ -4,16 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStockMovementRequest;
 use App\Http\Requests\UpdateStockMovementRequest;
+use App\Models\Product;
 use App\Models\StockMovement;
+use Inertia\Response;
 
 class StockMovementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        $searchProduct = request()->searchProduct;
+
+        $stockMovements = StockMovement::with(['product', 'user'])->where('branch_id', auth()->user()->branch_id)->paginate(25);
+        $products = Product::where('name', 'LIKE', "%{$searchProduct}%")->paginate(5);
+
+        return inertia('stock-movements/Index', [
+            'stockMovements' => $stockMovements,
+            'products' => $products,
+        ]);
     }
 
     /**

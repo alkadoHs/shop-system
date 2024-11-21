@@ -3,6 +3,7 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
+  ClipboardList,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -70,48 +71,6 @@ const data = {
       ],
     },
     {
-      title: "Products",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Products",
-          url: route('products.index'),
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
       title: "Settings",
       url: "#",
       icon: Settings2,
@@ -147,8 +106,13 @@ const data = {
       icon: PieChart,
     },
     {
-      name: "Travel",
-      url: "#",
+      name: "Expenses",
+      url: route('expenses.index'),
+      icon: ClipboardList,
+    },
+    {
+      name: "Stock movements",
+      url: route('stock-movements.index'),
       icon: Map,
     },
   ],

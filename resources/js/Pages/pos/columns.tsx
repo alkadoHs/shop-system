@@ -24,7 +24,7 @@ export const cartProductColumns: ColumnDef<Product>[] = [
                         e.preventDefault();
                         router.post(route("carts.add", product.id));
                     }}
-                    className="text-indigo-600 hover:underline"
+                    className="text-primary hover:underline"
                 >
                     {product.name}
                 </a>
@@ -69,7 +69,7 @@ export const cartItemColumns: ColumnDef<cartItem>[] = [
         cell: ({ row }) => {
             const product = row.original.product; // Access the full product data
             return (
-                <a className="text-indigo-600 hover:underline">
+                <a className="text-primary hover:underline">
                     {product.name}
                 </a>
             );

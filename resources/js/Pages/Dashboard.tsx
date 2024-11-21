@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import Invoice from "./Invoice";
+import { DemoChart } from "./ChartDemo";
 
 export default function Page() {
     return (
@@ -34,7 +35,8 @@ export default function Page() {
                     <div className="aspect-video rounded-xl bg-sky-800" />
                     <div className="aspect-video rounded-xl bg-sky-950" />
                 </div>
-                <Invoice />
+                {/* <Invoice /> */}
+                <DemoChart />
             </div>
         </Authenticated>
     );

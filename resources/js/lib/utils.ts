@@ -28,8 +28,12 @@ export function dateFormat(date: string) {
   return dayjs(date).format("DD/MM/YYYY");
 }
 
+export function dateTimeFormat(date: string) {
+  return dayjs(date).format("DD/MM/YYYY HH:mm");
+}
+
 export function dateFormatFilter(date: string) {
-  return dayjs(date).format("YYYY-MM-DD");
+  return dayjs(date).format("DD-MM-YYYY");
 }
 
 

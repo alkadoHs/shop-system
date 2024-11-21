@@ -14,7 +14,7 @@ export default {
     theme: {
     	extend: {
     		fontFamily: {
-    			sans: ['Inter', ...defaultTheme.fontFamily.sans]
+    			sans: ['Inter Tight', ...defaultTheme.fontFamily.sans]
     		},
     		borderRadius: {
     			lg: 'var(--radius)',

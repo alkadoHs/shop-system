@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StockMovementController;
 use App\Http\Middleware\RemoveCommaFromInput;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +59,14 @@ Route::resource('customers', CustomerController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('orders', OrderController::class)
+    ->only(['index', 'store', 'destroy', 'update'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('expenses', ExpenseController::class)
+    ->only(['index', 'store', 'destroy', 'update'])
+    ->middleware(['auth', 'verified', RemoveCommaFromInput::class]);
+
+Route::resource('stock-movements', StockMovementController::class)
     ->only(['index', 'store', 'destroy', 'update'])
     ->middleware(['auth', 'verified']);
 
