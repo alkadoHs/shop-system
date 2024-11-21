@@ -7,6 +7,7 @@ import {
     BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import Invoice from "./Invoice";
 
 export default function Page() {
     return (
@@ -33,7 +34,7 @@ export default function Page() {
                     <div className="aspect-video rounded-xl bg-sky-800" />
                     <div className="aspect-video rounded-xl bg-sky-950" />
                 </div>
-                <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+                <Invoice />
             </div>
         </Authenticated>
     );

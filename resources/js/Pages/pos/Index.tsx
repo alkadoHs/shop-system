@@ -1,5 +1,5 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { Product } from "../products/Index";
 import { DataTable } from "@/components/data-table";
 import { cartItem, cartItemColumns, cartProductColumns } from "./columns";
@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Payment } from "../payments/Index";
 import OrderDetails from "./actions/OrderDetails";
 import { numberFormat } from "@/lib/utils";
+import { useDebouncedCallback } from "use-debounce";
 
 const Pos = ({
     products,
@@ -19,6 +20,20 @@ const Pos = ({
     paymentMethods: Payment[];
     total: number;
 }) => {
+    const searchProduct = useDebouncedCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.value === "") return router.get(route("pos.index"));
+        router.get(
+            route("pos.index"),
+            {
+                search: e.target.value,
+            },
+            {
+                preserveState: true,
+                replace: true,
+            }
+        );
+    }, 1000);
+
     return (
         <Authenticated header={<h2>Point of sale</h2>}>
             <Head title="Point of sale" />
@@ -38,7 +53,7 @@ const Pos = ({
                         <OrderDetails payments={paymentMethods} total={total} />
                     </div>
                     <div className="space-y-2">
-                        <Input type="search" placeholder="Search products" />
+                        <Input type="search" name="search" onChange={searchProduct} placeholder="Search products" />
                         <DataTable
                             columns={cartProductColumns}
                             data={products}

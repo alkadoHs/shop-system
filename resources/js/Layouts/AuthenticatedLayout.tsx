@@ -1,14 +1,6 @@
 import { Link, usePage } from "@inertiajs/react";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
     SidebarInset,
@@ -29,7 +21,7 @@ export default function Authenticated({
             <SidebarProvider>
                 <AppSidebar />
                 <SidebarInset className="max-w-full">
-                    <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                    <header className="flex bg-muted h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
                         <div className="flex items-center justify-end  w-full gap-2 px-4">
                             <SidebarTrigger className="-ml-1 mr-auto" />
                             <Separator
@@ -37,12 +29,11 @@ export default function Authenticated({
                                 className="mr-2 h-4"
                             />
                             {header}
-                            
+
                             <ModeToggle />
                         </div>
                     </header>
-
-                    {children}
+                    <div className="pt-4 pb-10">{children}</div>
                 </SidebarInset>
             </SidebarProvider>
         </ThemeProvider>
