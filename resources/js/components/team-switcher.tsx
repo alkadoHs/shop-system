@@ -16,6 +16,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { usePage } from "@inertiajs/react"
 
 export function TeamSwitcher({
   teams,
@@ -28,6 +29,8 @@ export function TeamSwitcher({
 }) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
+
+  const user = usePage().props.auth.user;
 
   return (
     <SidebarMenu>
@@ -43,7 +46,7 @@ export function TeamSwitcher({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {activeTeam.name}
+                  {user.company.name}
                 </span>
                 <span className="truncate text-xs">{activeTeam.plan}</span>
               </div>

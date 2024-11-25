@@ -1,13 +1,18 @@
 <?php
 
+use App\Http\Controllers\BranchSalesController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CreditSalepaymentController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductSalesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Middleware\RemoveCommaFromInput;
 use Illuminate\Foundation\Application;
@@ -23,9 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -69,5 +72,59 @@ Route::resource('expenses', ExpenseController::class)
 Route::resource('stock-movements', StockMovementController::class)
     ->only(['index', 'store', 'destroy', 'update'])
     ->middleware(['auth', 'verified']);
+
+Route::get('credit-sales', [\App\Http\Controllers\CreditSalesController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('credit-sales.index');
+
+Route::get('credit-sales/{creditSale}', [\App\Http\Controllers\CreditSalesController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('credit-sales.show');
+
+Route::post('credit-sale-payments/{creditSale}', [CreditSalepaymentController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('credit-sale-payments.store');
+
+Route::get('pending-orders', [\App\Http\Controllers\PendingOrderController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('pending-orders.index');
+
+Route::post('pending-orders/confirm/{order}', [\App\Http\Controllers\PendingOrderController::class, 'confirm'])
+    ->middleware(['auth', 'verified'])
+    ->name('pending-orders.confirm');
+
+Route::patch('pending-orders/update/{orderItem}', [\App\Http\Controllers\PendingOrderController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('pending-orders.update');
+
+Route::patch('pending-orders/confirm-all/{order}', [\App\Http\Controllers\PendingOrderController::class, 'confirm_all'])
+    ->middleware(['auth', 'verified'])
+    ->name('pending-orders.confirm-all');
+
+
+// Reports routes
+
+Route::controller(ReportsController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('reports/sales', 'sales')->name('reports.sales');
+    Route::get('/reports/sales/export/excel', 'exportExcel')->name('reports.sales.export.excel');
+    Route::get('/reports/sales/export/pdf', 'exportPdf')->name('reports.sales.export.pdf');
+
+    Route::get('reports/expenses', 'expenses')->name('reports.expenses');
+    Route::get('reports/stock-movements', 'stockMovements')->name('reports.stock-movements');
+});
+
+// sales by branch report
+Route::controller(BranchSalesController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('reports/sales-by-branch', 'sales')->name('reports.sales-by-branch');
+    Route::get('reports/sales-by-branch/export/excel', 'exportExcel')->name('reports.sales-by-branch.export.excel');
+    Route::get('reports/sales-by-branch/export/pdf', 'exportPdf')->name('reports.sales-by-branch.export.pdf');
+});
+
+// sales by product report
+Route::controller(ProductSalesController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('reports/sales-by-product', 'sales')->name('reports.sales-by-product');
+    Route::get('reports/sales-by-product/export/excel', 'exportExcel')->name('reports.sales-by-product.export.excel');
+    Route::get('reports/sales-by-product/export/pdf', 'exportPdf')->name('reports.sales-by-product.export.pdf');
+});
 
 require __DIR__.'/auth.php';

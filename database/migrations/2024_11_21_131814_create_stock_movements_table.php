@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->decimal('stock', 10, 2);
-            $table->string('desscription')->nullable();
+            $table->string('description')->nullable();
             $table->enum('status', ['in', 'out'])->default('in');
             $table->decimal('last_stock', 10, 2);
             $table->timestamps();

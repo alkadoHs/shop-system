@@ -26,4 +26,9 @@ class PaymentMethod extends Model
     {
         return $this->hasMany(Expense::class);
     }
+
+    public function creditSalePayments(): HasMany
+    {
+        return $this->hasMany(CreditSalepayment::class);
+    }
 }

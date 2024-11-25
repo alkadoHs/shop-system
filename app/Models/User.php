@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -22,7 +23,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'branch_id',
+        'company_id',
         'email',
+        'phone',
+        'role',
+        'avatar',
         'password',
     ];
 
@@ -49,6 +55,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function cart(): HasOne
     {
         return $this->hasOne(Cart::class);
@@ -72,5 +88,10 @@ class User extends Authenticatable
     public function stockMovements(): HasMany
     {
         return $this->hasMany(StockMovement::class);
+    }
+
+    public function creditSalePayments(): HasMany
+    {
+        return $this->hasMany(CreditSalepayment::class);
     }
 }

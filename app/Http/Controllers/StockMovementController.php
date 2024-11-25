@@ -15,10 +15,14 @@ class StockMovementController extends Controller
      */
     public function index(): Response
     {
-        $searchProduct = request()->searchProduct;
+        $searchProduct = request()->searchProduct ?? null;
+        $search = request()->search ?? null;
 
-        $stockMovements = StockMovement::with(['product', 'user'])->where('branch_id', auth()->user()->branch_id)->paginate(25);
-        $products = Product::where('name', 'LIKE', "%{$searchProduct}%")->paginate(5);
+        $stockMovements = StockMovement::whereRelation('product', 'name', 'LIKE', "%{$search}%")->with(['product', 'user'])
+                                        ->where('branch_id', auth()->user()->branch_id)
+                                        ->latest()
+                                        ->paginate(25);
+        $products = Product::where('name', 'LIKE', "%{$searchProduct}%")->paginate(500);
 
         return inertia('stock-movements/Index', [
             'stockMovements' => $stockMovements,
@@ -39,7 +43,26 @@ class StockMovementController extends Controller
      */
     public function store(StoreStockMovementRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $product = Product::find($validated['product_id']);
+        $validated['last_stock'] = $product->stock;
+
+        switch ($validated['status']) {
+            case 'in':
+                StockMovement::create($validated);
+                $product->increment('stock', $validated['stock']);
+                break;
+            default:
+                if ($product->stock < $validated['stock']) {
+                    return back()->withErrors(['stock' => 'Stock not enough']);
+                }
+                $product->decrement('stock', $validated['stock']);
+                StockMovement::create($validated);
+                break;
+        }
+        
+        return back();
     }
 
     /**

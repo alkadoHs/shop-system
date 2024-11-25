@@ -69,9 +69,7 @@ export const cartItemColumns: ColumnDef<cartItem>[] = [
         cell: ({ row }) => {
             const product = row.original.product; // Access the full product data
             return (
-                <a className="text-primary hover:underline">
-                    {product.name}
-                </a>
+                <a className="text-primary hover:underline">{product.name}</a>
             );
         },
     },
@@ -110,8 +108,12 @@ export const cartItemColumns: ColumnDef<cartItem>[] = [
                     variant="delete"
                     onClick={(e) => {
                         e.preventDefault();
-                        alert("Are you sure you want to delete this item?");
-                        router.delete(route("carts.remove", item.id));
+                        if (
+                            confirm(
+                                "Are you sure you want to delete this item?"
+                            )
+                        )
+                            router.delete(route("carts.remove", item.id));
                     }}
                     className="text-red-600 hover:underline"
                 />

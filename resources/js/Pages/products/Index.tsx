@@ -18,6 +18,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { PaginationLink } from "../stock-movements/columns";
 
 export interface Product {
     id: number;
@@ -29,6 +30,22 @@ export interface Product {
     stock: number;
     stock_alert: number;
     expire_date: string;
+}
+
+export interface Products {
+    data: Product[];
+    current_page: number;
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: PaginationLink[];
+    next_page_url: string;
+    path: string;
+    per_page: number;
+    prev_page_url: string;
+    to: number;
+    total: number;
 }
 
 const Products = ({ products }: { products: Product[] }) => {

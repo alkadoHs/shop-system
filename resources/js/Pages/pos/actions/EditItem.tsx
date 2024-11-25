@@ -9,21 +9,23 @@ import { NumericFormat } from "react-number-format";
 const EditItem = ({ item }: { item: cartItem }) => {
     const handleChange = useDebouncedCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            const qty = Number(e.target.value.replaceAll(',', ''));
-            router.patch(
-                route("carts.update", item.id),
-                { qty },
-                {
-                    preserveScroll: true,
-                    preserveState: false,
-                    onSuccess: () => {
-                        toast.success("Item updated successfully");
-                    },
-                    onError: (errors) => {
-                        toast.error(errors.qty);
-                    },
-                }
-            );
+            const qty = Number(e.target.value.replaceAll(",", ""));
+
+            if (qty > 0)
+                router.patch(
+                    route("carts.update", item.id),
+                    { qty },
+                    {
+                        preserveScroll: true,
+                        preserveState: false,
+                        onSuccess: () => {
+                            toast.success("Item updated successfully");
+                        },
+                        onError: (errors) => {
+                            toast.error(errors.qty);
+                        },
+                    }
+                );
         },
         2000
     );

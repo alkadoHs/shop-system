@@ -41,4 +41,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function creditSalepayments(): HasMany
+    {
+        return $this->hasMany(CreditSalepayment::class);
+    }
 }

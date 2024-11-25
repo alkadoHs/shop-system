@@ -1,10 +1,26 @@
 import { Config } from 'ziggy-js';
 
+export interface branch {
+    id: number;
+    name: string;
+}
+
+export interface Company {
+    id: number;
+    name: string;
+    address: string;
+    phone: string;
+    email: string;
+    logo: string;
+}
+
 export interface User {
     id: number;
     name: string;
     email: string;
     avatar: string;
+    branch: branch;
+    company: Company;
     email_verified_at?: string;
 }
 

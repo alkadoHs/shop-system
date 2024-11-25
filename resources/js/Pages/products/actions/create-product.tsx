@@ -197,7 +197,7 @@ export default function CreateProduct() {
                             >
                                 Cancel
                             </Button>
-                            <LoadingButton loading={processing} type="submit" disabled={processing} >
+                            <LoadingButton loading={processing} type="submit">
                                 Create
                             </LoadingButton>
                         </ResponsiveModalFooter>

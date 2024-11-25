@@ -26,7 +26,6 @@ class StoreStockMovementRequest extends FormRequest
             'stock' => 'required|numeric|max:9999999',
             'status' => 'required|in:in,out',
             'description' => 'nullable|string|max:255',
-            'last_stock' => 'required|numeric|max:9999999',
         ];
     }
 }

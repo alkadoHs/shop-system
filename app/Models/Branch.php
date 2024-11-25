@@ -42,4 +42,9 @@ class Branch extends Model
     {
         return $this->hasMany(StockMovement::class);
     }
+
+    public function creditSalePayments(): HasMany
+    {
+        return $this->hasMany(CreditSalepayment::class);
+    }
 }

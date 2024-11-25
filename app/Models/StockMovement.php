@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\StockMovementObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy(StockMovementObserver::class)]
 class StockMovement extends Model
 {
     protected $fillable = [
@@ -13,7 +16,7 @@ class StockMovement extends Model
         'user_id',
         'stock',
         'status',
-        'desscription',
+        'description',
         'last_stock',
     ];
 
