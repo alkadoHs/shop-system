@@ -8,6 +8,6 @@ class ProductObserver
 {
     public function creating(Product $product)
     {
-       $product->capital = $product->buy_price * $product->stock;
+       $product->branch_id = auth()->user()->branch_id;
     }
 }
