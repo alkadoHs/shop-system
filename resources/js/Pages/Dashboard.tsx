@@ -172,7 +172,7 @@ export default function Page({
                                         growthRate=""
                                         growthRatePositive={true}
                                         icon={<Blocks />}
-                                        link={route('reports.low-stock')}
+                                        link={route('reports.low-stock-alerts')}
                                         linkText="View reports"
                                     />
                                 </Deferred>
