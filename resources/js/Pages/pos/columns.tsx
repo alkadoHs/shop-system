@@ -4,6 +4,7 @@ import { router } from "@inertiajs/react";
 import { numberFormat } from "@/lib/utils";
 import ActionButton from "@/components/action-button";
 import EditItem from "./actions/EditItem";
+import { toast } from "sonner";
 
 export type cartItem = {
     id: number;
@@ -22,7 +23,16 @@ export const cartProductColumns: ColumnDef<Product>[] = [
                 <a
                     onClick={(e) => {
                         e.preventDefault();
-                        router.post(route("carts.add", product.id));
+                        router.post(route("carts.add", product.id), {}, {
+                            preserveScroll: true,
+                            preserveState: true,
+                            onSuccess: () => {
+                                toast.success("Item added to cart");
+                            },
+                            onError: (errors) => {
+                                toast.error("Unexpected error occurred, pleease try again later!");;
+                            },
+                        });
                     }}
                     className="text-primary hover:underline"
                 >
@@ -113,7 +123,16 @@ export const cartItemColumns: ColumnDef<cartItem>[] = [
                                 "Are you sure you want to delete this item?"
                             )
                         )
-                            router.delete(route("carts.remove", item.id));
+                            router.delete(route("carts.remove", item.id), {
+                                preserveScroll: true,
+                                preserveState: true,
+                                onSuccess: () => {
+                                    toast.success("Item removed from cart");
+                                },
+                                onError: (errors) => {
+                                    toast.error("Unexpected error occurred, pleease try again later!");;
+                                },
+                            });
                     }}
                     className="text-red-600 hover:underline"
                 />

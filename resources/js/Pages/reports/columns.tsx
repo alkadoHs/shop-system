@@ -29,6 +29,16 @@ export interface SalesByProduct {
 }
 
 
+export interface deadStock {
+    id: number
+    product_name: string
+    last_sale_date: number
+    quantity_sold: number
+    days_since_last_sale: number
+    stock_value: number
+}
+
+
 export const salesOverTimeColumns: ColumnDef<SalesOverTime>[] = [
     {
         accessorKey: 'date',
@@ -126,4 +136,40 @@ export const productSalesColumns: ColumnDef<SalesByProduct>[] = [
             return (<span>{row.original.transaction_count}</span>);
         }
     },
+]
+
+
+export const deadStockColumns: ColumnDef<deadStock>[] = [
+    {
+        accessorKey: 'product_name',
+        header: 'Product',
+    },
+    {
+        accessorKey: 'last_sale_date',
+        header: 'Last Sale Date',
+        cell: ({ row }) => {
+            return (<span>{row.original.last_sale_date ?? '-'}</span>);
+        }
+    },
+    {
+        accessorKey: 'quantity_sold',
+        header: 'Quantity Sold',
+        cell: ({ row }) => {
+            return (<span>{numberFormat(row.original.quantity_sold)}</span>);
+        }
+    },
+    {
+        accessorKey: 'days_since_last_sale',
+        header: 'Days Since Last Sale',
+        cell: ({ row }) => {
+            return (<span>{row.original.days_since_last_sale ?? '-'}</span>);
+        }
+    },
+    {
+        accessorKey: 'stock_value',
+        header: 'Stock Value',
+        cell: ({ row }) => {
+            return (<span>{numberFormat(row.original.stock_value)}</span>);
+            },
+        },
 ]

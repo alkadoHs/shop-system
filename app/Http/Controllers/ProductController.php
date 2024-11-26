@@ -15,7 +15,7 @@ class ProductController extends Controller
         $search = request()->search ?? null;
 
         return Inertia::render("products/Index", [
-            'products' => Product::where('name', 'LIKE', "%{$search}%")->get()
+            'products' => Inertia::defer(fn () => Product::where('name', 'LIKE', "%{$search}%")->get()),
         ]);
     }
 

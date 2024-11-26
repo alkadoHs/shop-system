@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { dateFormat, numberFormat } from "@/lib/utils";
-import { Head, router } from "@inertiajs/react";
+import { Deferred, Head, router } from "@inertiajs/react";
 import CreateProduct from "./actions/create-product";
 import DeleteProduct from "./actions/delete-product";
 import { ChangeEvent } from "react";
@@ -19,6 +19,7 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { PaginationLink } from "../stock-movements/columns";
+import { Spinner } from "@/components/ui/spinner";
 
 export interface Product {
     id: number;
@@ -59,7 +60,7 @@ const Products = ({ products }: { products: Product[] }) => {
                     preserveState: true,
                 });
             } else {
-                router.visit(route("products.index"))
+                router.visit(route("products.index"));
             }
         },
         1000
@@ -76,84 +77,108 @@ const Products = ({ products }: { products: Product[] }) => {
                 <Separator />
 
                 <div className="flex justify-between gap-4 my-2 items-center">
-                  <Input type="search" className="max-w-sm" onChange={onSearchChange} placeholder="Search products..." />
-                  <CreateProduct />
+                    <Input
+                        type="search"
+                        className="max-w-sm"
+                        onChange={onSearchChange}
+                        placeholder="Search products..."
+                    />
+                    <CreateProduct />
                 </div>
 
                 <div className="w-full overflow-x-auto whitespace-nowrap border bg-card">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="pl-6">S/N</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead className="text-right">
-                                    Stock
-                                </TableHead>
-                                <TableHead className="text-right">
-                                    Buy price
-                                </TableHead>
-                                <TableHead className="text-right">
-                                    Selling price
-                                </TableHead>
-                                <TableHead className="text-right">
-                                    Whole price
-                                </TableHead>
-                                <TableHead className="text-right">
-                                    Whole stock
-                                </TableHead>
-                                <TableHead className="text-right">
-                                    Stock alert
-                                </TableHead>
-                                <TableHead>Expire date</TableHead>
-                                <TableHead>Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {products.map((product, index) => (
-                                <TableRow key={product.id}>
-                                    <TableCell className="pl-6">{index + 1}</TableCell>
-                                    <TableCell>{product.name}</TableCell>
-                                    <TableCell className="text-right">
-                                        { product.stock < product.stock_alert ? (
-                                            <Badge variant="destructive">
-                                                {numberFormat(product.stock)}
-                                            </Badge>
-                                        ) : (
-                                            <Badge >
-                                                {numberFormat(product.stock)}
-                                            </Badge>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        {numberFormat(product.buy_price)}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        {numberFormat(product.sale_price)}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        {numberFormat(product.whole_price)}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        {numberFormat(product.whole_stock)}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        {numberFormat(product.stock_alert)}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        {
-                                            product.expire_date
-                                                ? dateFormat(product.expire_date)
-                                                : "DD/MM/YYYY"
-                                        }
-                                    </TableCell>
-                                    <TableCell className="flex items-center gap-2 pr-6">
-                                        <ActionButton onClick={() => router.visit(route('products.edit', product.id))} variant="update" />
-                                        <DeleteProduct product={product} />
-                                    </TableCell>
+                    <Deferred data="products" fallback={<Spinner />}>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="pl-6">S/N</TableHead>
+                                    <TableHead>Name</TableHead>
+                                    <TableHead className="text-right">
+                                        Stock
+                                    </TableHead>
+                                    <TableHead className="text-right">
+                                        Buy price
+                                    </TableHead>
+                                    <TableHead className="text-right">
+                                        Selling price
+                                    </TableHead>
+                                    <TableHead className="text-right">
+                                        Whole price
+                                    </TableHead>
+                                    <TableHead className="text-right">
+                                        Whole stock
+                                    </TableHead>
+                                    <TableHead className="text-right">
+                                        Stock alert
+                                    </TableHead>
+                                    <TableHead>Expire date</TableHead>
+                                    <TableHead>Actions</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHeader>
+                            <TableBody>
+                                {products?.map((product, index) => (
+                                    <TableRow key={product.id}>
+                                        <TableCell className="pl-6">
+                                            {index + 1}
+                                        </TableCell>
+                                        <TableCell>{product.name}</TableCell>
+                                        <TableCell className="text-right">
+                                            {product.stock <
+                                            product.stock_alert ? (
+                                                <Badge variant="destructive">
+                                                    {numberFormat(
+                                                        product.stock
+                                                    )}
+                                                </Badge>
+                                            ) : (
+                                                <Badge>
+                                                    {numberFormat(
+                                                        product.stock
+                                                    )}
+                                                </Badge>
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {numberFormat(product.buy_price)}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {numberFormat(product.sale_price)}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {numberFormat(product.whole_price)}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {numberFormat(product.whole_stock)}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {numberFormat(product.stock_alert)}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {product.expire_date
+                                                ? dateFormat(
+                                                      product.expire_date
+                                                  )
+                                                : "DD/MM/YYYY"}
+                                        </TableCell>
+                                        <TableCell className="flex items-center gap-2 pr-6">
+                                            <ActionButton
+                                                onClick={() =>
+                                                    router.visit(
+                                                        route(
+                                                            "products.edit",
+                                                            product.id
+                                                        )
+                                                    )
+                                                }
+                                                variant="update"
+                                            />
+                                            <DeleteProduct product={product} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Deferred>
                 </div>
             </Card>
         </Authenticated>

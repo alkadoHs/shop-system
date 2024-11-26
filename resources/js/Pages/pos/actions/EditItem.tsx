@@ -27,7 +27,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
                     }
                 );
         },
-        2000
+        1000
     );
 
     return (

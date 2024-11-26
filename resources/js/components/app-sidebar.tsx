@@ -64,12 +64,8 @@ const data = {
                     url: route("dashboard"),
                 },
                 {
-                    title: "Profile",
-                    url: route("profile.edit"),
-                },
-                {
-                    title: "Payment methods",
-                    url: route("payments.index"),
+                    title: "Seller Dasboard",
+                    url: route("dashboard"),
                 },
             ],
         },
@@ -79,20 +75,12 @@ const data = {
             icon: Settings2,
             items: [
                 {
-                    title: "General",
-                    url: "#",
+                    title: "My Profile",
+                    url: route("profile.edit"),
                 },
                 {
-                    title: "Team",
-                    url: "#",
-                },
-                {
-                    title: "Billing",
-                    url: "#",
-                },
-                {
-                    title: "Limits",
-                    url: "#",
+                    title: "Payment methods",
+                    url: route("payments.index"),
                 },
             ],
         },
@@ -114,24 +102,12 @@ const data = {
                     url: route('reports.sales-by-product'),
                 },
                 {
-                    title: "Overall profit margin",
-                    url: "#",
-                },
-                {
-                    title: "Profit by product",
-                    url: "#",
-                },
-                {
-                    title: "Stock levels",
-                    url: "#",
-                },
-                {
                     title: "Low-Stock Alerts",
                     url: "#",
                 },
                 {
                     title: "Dead Stock",
-                    url: "#",
+                    url: route('reports.dead-stock'),
                 },
                 {
                     title: "Credit Sales Report",

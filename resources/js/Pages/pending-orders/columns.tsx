@@ -74,7 +74,7 @@ export const pendingOrderColumns: ColumnDef<Order>[] = [
         cell: ({ row }) => {
             return (
                 <span>
-                    {numberFormat(row.original.order_items_sum_total_p_qty)}
+                    {numberFormat(Math.round(row.original.order_items_sum_total_p_qty))}
                 </span>
             );
         },

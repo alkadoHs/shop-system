@@ -76,7 +76,7 @@ export default function Page({
                             <Deferred data="capital" fallback={<Spinner />}>
                                 <StatsCard
                                     label="Capital"
-                                    content={numberFormat(capital)}
+                                    content={numberFormat(Math.round(capital))}
                                 />
                             </Deferred>
                             <Deferred

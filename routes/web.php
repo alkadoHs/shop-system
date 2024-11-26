@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CreditSalepaymentController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeadStockController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
@@ -126,6 +127,13 @@ Route::controller(ProductSalesController::class)->middleware(['auth', 'verified'
     Route::get('reports/sales-by-product', 'sales')->name('reports.sales-by-product');
     Route::get('reports/sales-by-product/export/excel', 'exportExcel')->name('reports.sales-by-product.export.excel');
     Route::get('reports/sales-by-product/export/pdf', 'exportPdf')->name('reports.sales-by-product.export.pdf');
+});
+
+// dead stock report
+Route::controller(DeadStockController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('reports/dead-stock', 'report')->name('reports.dead-stock');
+    Route::get('reports/dead-stock/export/excel', 'exportExcel')->name('reports.dead-stock.export.excel');
+    Route::get('reports/dead-stock/export/pdf', 'exportPdf')->name('reports.dead-stock.export.pdf');
 });
 
 require __DIR__.'/auth.php';

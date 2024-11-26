@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\CartItem;
 use App\Models\Customer;
 use App\Models\Order;
-use App\Models\OrderItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,17 +31,19 @@ class OrderController extends Controller
 
 
        DB::transaction(function () use($validated) {
+           $customer = null;
            // create a customer
-           $customer = Customer::create([
-               'name' => $validated['customer'],
-           ]);
+           if ($validated['customer'])
+                $customer = Customer::create([
+                    'name' => $validated['customer'],
+                ]);
    
            // create an order
            $order = Order::create([
                'branch_id' => auth()->user()->branch_id,
                'user_id' => auth()->user()->id,
                'payment_method_id' => $validated['payment_method_id'],
-               'customer_id' => $customer->id,
+               'customer_id' => $customer?->id,
                'status' => $validated['status'],
            ]);
    

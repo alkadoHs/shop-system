@@ -14,7 +14,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Card } from "./ui/card";
 import { ReactNode } from "react";
 
 interface DataTableProps<TData, TValue> {
