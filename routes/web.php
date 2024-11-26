@@ -13,12 +13,12 @@ use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSalesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Reports\ExpensesReportController;
+use App\Http\Controllers\Reports\LowStockAlertsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Middleware\RemoveCommaFromInput;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', function () {
     return to_route('login');
@@ -134,6 +134,20 @@ Route::controller(DeadStockController::class)->middleware(['auth', 'verified'])-
     Route::get('reports/dead-stock', 'report')->name('reports.dead-stock');
     Route::get('reports/dead-stock/export/excel', 'exportExcel')->name('reports.dead-stock.export.excel');
     Route::get('reports/dead-stock/export/pdf', 'exportPdf')->name('reports.dead-stock.export.pdf');
+});
+
+//low stock alert report
+Route::controller(LowStockAlertsController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('reports/low-stock-alerts', 'report')->name('reports.low-stock-alerts');
+    Route::get('reports/low-stock-alerts/export/excel', 'exportExcel')->name('reports.low-stock-alerts.export.excel');
+    Route::get('reports/low-stock-alerts/export/pdf', 'exportPdf')->name('reports.low-stock-alerts.export.pdf');
+});
+
+// Expenses report
+Route::controller(ExpensesReportController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('reports/expenses', 'report')->name('reports.expenses');
+    Route::get('reports/expenses/export/excel', 'exportExcel')->name('reports.expenses.export.excel');
+    Route::get('reports/expenses/export/pdf', 'exportPdf')->name('reports.expenses.export.pdf');
 });
 
 require __DIR__.'/auth.php';

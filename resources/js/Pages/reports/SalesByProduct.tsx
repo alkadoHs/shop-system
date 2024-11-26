@@ -11,9 +11,9 @@ import { DataTable } from "@/components/data-table";
 import { dateFormat, numberFormat } from "@/lib/utils";
 import { TableCell } from "@/components/ui/table";
 import BranchSalesFilter from "./filters/BranchSalesFilter";
-import { BranchSalesExport } from "./filters/BranchSalesExport";
+import { BranchSalesExport } from "./exports/BranchSalesExport";
 import ProductSalesFilter from "./filters/ProductSalesFilter";
-import { ProductSalesExport } from "./filters/ProductSalesExport";
+import { ProductSalesExport } from "./exports/ProductSalesExport";
 
 const SalesByProductPage = ({
     salesByProduct,

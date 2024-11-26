@@ -40,7 +40,6 @@ export default function Edit({
 
                     <Card>
                         <CardContent>
-                            <DeleteUserForm className="max-w-xl" />
                         </CardContent>
                     </Card>
                 </div>

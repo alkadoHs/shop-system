@@ -6,7 +6,7 @@ import { DataTable } from "@/components/data-table";
 import { dateFormat, numberFormat } from "@/lib/utils";
 import { TableCell } from "@/components/ui/table";
 import DeadStockFilter from "./filters/DeadStockFilter";
-import { DeadStockExport } from "./filters/DeadStockExport";
+import { DeadStockExport } from "./exports/DeadStockExport";
 
 const DeadStockPage = ({
     deadStocks,

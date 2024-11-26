@@ -169,10 +169,10 @@ export default function Page({
                                     <StockCard
                                         title="Out of Stock"
                                         value={numberFormat(lowStockProducts)}
-                                        growthRate="8.1%"
+                                        growthRate=""
                                         growthRatePositive={true}
                                         icon={<Blocks />}
-                                        link="#"
+                                        link={route('reports.low-stock')}
                                         linkText="View reports"
                                     />
                                 </Deferred>
@@ -186,7 +186,7 @@ export default function Page({
                                         growthRate=""
                                         growthRatePositive={true}
                                         icon={<ChartNoAxesCombined />}
-                                        link="#"
+                                        link={route('reports.sales-by-product')}
                                         linkText="View reports"
                                     />
                                 </Deferred>
@@ -210,8 +210,8 @@ export default function Page({
                                 >
                                     <StockCard
                                         title="Zero Stock Products"
-                                        value={numberFormat(lowStockProducts)}
-                                        growthRate="0.0%"
+                                        value={numberFormat(zeroStockProducts)}
+                                        growthRate=""
                                         growthRatePositive={false}
                                         icon={<ShieldOff />}
                                         link="#"

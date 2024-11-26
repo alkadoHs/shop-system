@@ -103,48 +103,52 @@ const data = {
                 },
                 {
                     title: "Low-Stock Alerts",
-                    url: "#",
+                    url: route('reports.low-stock-alerts'),
                 },
                 {
                     title: "Dead Stock",
                     url: route('reports.dead-stock'),
                 },
+                // {
+                //     title: "Credit Sales Report",
+                //     url: "#",
+                // },
                 {
-                    title: "Credit Sales Report",
-                    url: "#",
+                    title: "Expenses reports",
+                    url: route('reports.expenses'),
                 },
-                {
-                    title: "Accounts Receivable",
-                    url: "#",
-                },
-                {
-                    title: "Branch Sales Comparison",
-                    url: "#",
-                },
-                {
-                    title: "Branch Expenses",
-                    url: "#",
-                },
-                {
-                    title: "Seasonal Sales Trends",
-                    url: "#",
-                },
-                {
-                    title: "Sales Forecusting",
-                    url: "#",
-                },
-                {
-                    title: "Sales by seller",
-                    url: "#",
-                },
-                {
-                    title: "Operational Costs",
-                    url: "#",
-                },
-                {
-                    title: "Discounted Sales",
-                    url: "#",
-                },
+                // {
+                //     title: "Accounts Receivable",
+                //     url: "#",
+                // },
+                // {
+                //     title: "Branch Sales Comparison",
+                //     url: "#",
+                // },
+                // {
+                //     title: "Branch Expenses",
+                //     url: "#",
+                // },
+                // {
+                //     title: "Seasonal Sales Trends",
+                //     url: "#",
+                // },
+                // {
+                //     title: "Sales Forecusting",
+                //     url: "#",
+                // },
+                // {
+                //     title: "Sales by seller",
+                //     url: "#",
+                // },
+                // {
+                //     title: "Operational Costs",
+                //     url: "#",
+                // },
+                // {
+                //     title: "Discounted Sales",
+                //     url: "#",
+                // },
             ],
         },
     ],
