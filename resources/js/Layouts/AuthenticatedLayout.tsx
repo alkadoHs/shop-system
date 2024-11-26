@@ -17,7 +17,7 @@ export default function Authenticated({
     const user = usePage().props.auth.user;
 
     return (
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
             <SidebarProvider>
                 <AppSidebar />
                 <SidebarInset className="max-w-full">
