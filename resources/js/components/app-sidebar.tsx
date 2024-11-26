@@ -152,7 +152,7 @@ const data = {
             ],
         },
     ],
-    projects: [
+    Shop: [
         {
             name: "Point of sale",
             url: route("pos.index"),
@@ -194,7 +194,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
-                <NavProjects projects={data.projects} />
+                <NavProjects projects={data.Shop} />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser />
