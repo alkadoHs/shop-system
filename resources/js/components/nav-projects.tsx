@@ -31,17 +31,19 @@ export function NavProjects({
         name: string;
         url: string;
         icon: LucideIcon;
+        isVisible?: boolean;
     }[];
 }) {
     const { isMobile } = useSidebar();
+    const currentUrl = route().current()
 
     return (
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
             <SidebarGroupLabel>Shop</SidebarGroupLabel>
             <SidebarMenu>
                 {projects.map((item) => (
-                    <SidebarMenuItem key={item.name}>
-                        <SidebarMenuButton asChild>
+                    <SidebarMenuItem key={item.name} hidden={item.isVisible === false}>
+                        <SidebarMenuButton asChild isActive={currentUrl?.includes(item.url)}>
                             <Link href={item.url}>
                                 <item.icon />
                                 <span>{item.name}</span>

@@ -18,20 +18,26 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import { Link } from "@inertiajs/react"
+import { User } from "@/types"
 
 export function NavMain({
   items,
+  user,
 }: {
   items: {
     title: string
     url: string
     icon?: LucideIcon
     isActive?: boolean
+    isVisible?: boolean
     items?: {
       title: string
       url: string
+      isActive?: boolean
+      isVisible?: boolean
     }[]
-  }[]
+  }[],
+  user?: User
 }) {
   return (
     <SidebarGroup>
@@ -43,6 +49,7 @@ export function NavMain({
             asChild
             defaultOpen={item.isActive}
             className="group/collapsible"
+            hidden={item.isVisible === false}
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
@@ -55,8 +62,8 @@ export function NavMain({
               <CollapsibleContent>
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
+                    <SidebarMenuSubItem key={subItem.title} hidden={subItem.isVisible === false}>
+                      <SidebarMenuSubButton asChild isActive={subItem.isActive}>
                         <Link href={subItem.url}>
                           <span>{subItem.title}</span>
                         </Link>

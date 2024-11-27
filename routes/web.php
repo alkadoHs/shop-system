@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Reports\ExpensesReportController;
 use App\Http\Controllers\Reports\LowStockAlertsController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SellerDashboard;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Middleware\RemoveCommaFromInput;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('seller-dashboard', [SellerDashboard::class, 'index'])->middleware(['auth', 'verified'])->name('seller-dashboard');
 
 Route::resource('users', \App\Http\Controllers\UserController::class)
     ->only(['index', 'store'])
@@ -68,6 +71,10 @@ Route::resource('customers', CustomerController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('orders', OrderController::class)
+    ->only(['index', 'store', 'destroy', 'update'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('order-items', \App\Http\Controllers\OrderItemController::class)
     ->only(['index', 'store', 'destroy', 'update'])
     ->middleware(['auth', 'verified']);
 

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Payment } from "../payments/Index";
 import { router } from "@inertiajs/react";
 import { Product } from "../products/Index";
+import { Order } from "../orders/columns";
 
 export interface Customer {
     id: number;
@@ -45,6 +46,7 @@ export interface CreditSalePayment {
 
 export interface OrderItem {
     id: number;
+    order: Order;
     product: Product;
     price: number;
     qty: number;
@@ -52,7 +54,7 @@ export interface OrderItem {
     total: number;
     profit: number;
     total_buy_price: number;
-    created_at: number;
+    created_at: string;
 }
 
 export const creditSaleColumns: ColumnDef<CreditSale>[] = [
