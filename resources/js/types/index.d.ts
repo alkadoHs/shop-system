@@ -19,6 +19,9 @@ export interface User {
     name: string;
     email: string;
     avatar: string;
+    role: string;
+    branch_id: number;
+    company_id: number;
     branch: branch;
     company: Company;
     email_verified_at?: string;

@@ -57,9 +57,9 @@ class DashboardController extends Controller
         foreach ($months as $month) {
             $expenses = ExpenseItem::whereMonth('created_at', Carbon::parse($month)->month)
             ->whereYear('created_at', Carbon::parse($month)->year)
-            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                return $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            })
+            // ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            //     return $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            // })
             ->sum('cost');
         
             $expensesData->push($expenses);

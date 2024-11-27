@@ -72,6 +72,10 @@ const data = {
                     title: "Payment methods",
                     url: route("payments.index"),
                 },
+                {
+                    title: "Users",
+                    url: route("users.index"),
+                },
             ],
         },
         {
