@@ -14,7 +14,7 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
         cell: ({ row }) => {
             return (
                 <span className="font-semibold text-primary leading-tight">
-                    #{row.original.order.id}
+                    #{row.original.order?.id}
                 </span>
             );
         },
@@ -23,7 +23,7 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
         accessorKey: "order.status",
         header: "Status",
         cell: ({ row }) => {
-            const status = row.original.order.status;
+            const status = row.original.order?.status;
 
             switch (status) {
                 case "pending":
@@ -50,7 +50,7 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
         cell: ({ row }) => {
             return (
                 <span className="whitespace-normal">
-                    {row.original.product.name}
+                    {row.original.product?.name}
                 </span>
             );
         },

@@ -61,11 +61,7 @@ export default function Page({
     months: string[];
 }) {
     return (
-        <Authenticated
-            header={
-                <p>Dashboard</p>
-            }
-        >
+        <Authenticated header={<p>Dashboard</p>}>
             <section className="space-y-6">
                 <div className="px-4 flex justify-end items-center gap-4">
                     <DatePicker />
@@ -172,7 +168,7 @@ export default function Page({
                                         growthRate=""
                                         growthRatePositive={true}
                                         icon={<Blocks />}
-                                        link={route('reports.low-stock-alerts')}
+                                        link={route("reports.low-stock-alerts")}
                                         linkText="View reports"
                                     />
                                 </Deferred>
@@ -186,7 +182,7 @@ export default function Page({
                                         growthRate=""
                                         growthRatePositive={true}
                                         icon={<ChartNoAxesCombined />}
-                                        link={route('reports.sales-by-product')}
+                                        link={route("reports.sales-by-product")}
                                         linkText="View reports"
                                     />
                                 </Deferred>

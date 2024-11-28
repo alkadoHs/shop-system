@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index(): Response
     {
         return Inertia::render("users/Index", [
-            'users' => User::with('branch')->get(),
+            'users' => User::with('branch')->where('company_id', auth()->user()->company_id)->get(),
             'branches' => \App\Models\Branch::get(),
         ]);
     }
@@ -28,6 +28,8 @@ class UserController extends Controller
             'phone' => 'required|string|max:255',
             'password' => 'required|string|min:8',
         ]);
+
+        $validated['company_id'] = auth()->user()->company_id;
 
         User::create($validated);
 

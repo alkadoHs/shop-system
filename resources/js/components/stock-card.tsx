@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import React from "react";
 
 interface StockCardProps {
@@ -67,7 +68,7 @@ const StockCard: React.FC<StockCardProps> = ({
           {icon}
         </div>
       </div>
-      <a
+      <Link
         className="py-3 px-4 md:px-5 inline-flex justify-between items-center text-sm text-gray-600 border-t border-gray-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 rounded-b-xl dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
         href={link}
       >
@@ -86,7 +87,7 @@ const StockCard: React.FC<StockCardProps> = ({
         >
           <path d="m9 18 6-6-6-6" />
         </svg>
-      </a>
+      </Link>
     </div>
   );
 };

@@ -103,7 +103,7 @@ class BranchSalesController extends Controller
 
     private function getSalesByBranch($startDate, $endDate)
     {
-        return Order::select(
+        return DB::table('orders')->select(
                 'branches.name as branch_name',
                 DB::raw('SUM(order_items.total) as total_sales'),
                 DB::raw('COUNT(orders.id) as transaction_count'),

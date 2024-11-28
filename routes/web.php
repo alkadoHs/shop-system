@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\BranchSalesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CreditSalepaymentController;
@@ -34,6 +35,10 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('seller-dashboard', [SellerDashboard::class, 'index'])->middleware(['auth', 'verified'])->name('seller-dashboard');
+
+Route::patch('/branches/switch/{branch}', [\App\Http\Controllers\BranchController::class, 'switchBranch'])
+    ->middleware(['auth', 'verified'])
+    ->name('branches.switch');
 
 Route::resource('users', \App\Http\Controllers\UserController::class)
     ->only(['index', 'store'])
@@ -159,6 +164,14 @@ Route::controller(ExpensesReportController::class)->middleware(['auth', 'verifie
     Route::get('reports/expenses', 'report')->name('reports.expenses');
     Route::get('reports/expenses/export/excel', 'exportExcel')->name('reports.expenses.export.excel');
     Route::get('reports/expenses/export/pdf', 'exportPdf')->name('reports.expenses.export.pdf');
+});
+
+
+
+// json responses routes
+Route::controller(ApiController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('api/products', 'products')->name('api.products');
+    Route::get('api/branches', 'getUserBranches')->name('api.branches');
 });
 
 require __DIR__.'/auth.php';

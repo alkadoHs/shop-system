@@ -11,7 +11,7 @@ interface SalesExpenseChartProps {
 
 const SalesExpenseChart: React.FC<SalesExpenseChartProps> = ({ salesData, expensesData, months }) => {
   // Prepare the chart data
-  const chartData = months.map((month, index) => ({
+  const chartData = months?.map((month, index) => ({
     month,
     sales: salesData[index],
     expenses: expensesData[index],

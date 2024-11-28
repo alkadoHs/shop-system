@@ -63,4 +63,10 @@ class BranchController extends Controller
     {
         //
     }
+
+    public function switchBranch(Branch $branch)
+    {
+        auth()->user()->update(['branch_id' => $branch->id]);
+        return back();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -17,6 +18,13 @@ class OrderItem extends Model
         'total',
         'profit',
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('scopeBranch', function (Builder $builder) {
+            $builder->whereRelation('order', 'branch_id', auth()->user()->branch_id);
+        });
+    }
 
     public function product(): BelongsTo
     {

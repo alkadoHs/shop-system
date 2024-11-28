@@ -123,8 +123,8 @@ const Products = ({ products }: { products: Product[] }) => {
                                         </TableCell>
                                         <TableCell>{product.name}</TableCell>
                                         <TableCell className="text-right">
-                                            {product.stock <
-                                            product.stock_alert ? (
+                                            {Number(product.stock) <=
+                                            Number(product.stock_alert) ? (
                                                 <Badge variant="destructive">
                                                     {numberFormat(
                                                         product.stock

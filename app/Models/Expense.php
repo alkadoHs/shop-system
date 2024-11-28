@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\BranchScope;
 use App\Observers\ExpenseObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ScopedBy(BranchScope::class)]
 #[ObservedBy(ExpenseObserver::class)]
 class Expense extends Model
 {

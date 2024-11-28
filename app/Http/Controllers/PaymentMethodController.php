@@ -22,6 +22,8 @@ class PaymentMethodController extends Controller
             'number' => 'nullable|string|max:20'
         ]);
 
+        $validate['company_id'] = auth()->user()->company_id;
+
         PaymentMethod::create($validate);
 
         return redirect()->back();

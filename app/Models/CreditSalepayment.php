@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\BranchScope;
 use App\Observers\CreditSalePaymentObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ScopedBy(BranchScope::class)]
 #[ObservedBy(CreditSalePaymentObserver::class)]
 class CreditSalepayment extends Model
 {

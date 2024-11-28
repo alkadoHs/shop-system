@@ -24,8 +24,8 @@ export const userColumns: ColumnDef<User>[] = [
         accessorKey: "branch.name",
         header: "Branch",
         cell: ({  row }) => {
-            const branch = row.original.branch;
-            return <>{branch.name}</>;
+            const branch = row.original?.branch;
+            return <>{branch?.name}</>;
         },
     },
 ];
