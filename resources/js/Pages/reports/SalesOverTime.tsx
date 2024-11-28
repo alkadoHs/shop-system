@@ -8,6 +8,7 @@ import SalesFilter from "./filters/SalesFilter";
 import { dateFormat, numberFormat } from "@/lib/utils";
 import { SalesExport } from "./filters/SalesExport";
 import { TableCell } from "@/components/ui/table";
+import ReportDateFilter from "@/components/filters/reports-date-filter";
 
 const SalesOverTimePage = ({
     sales,
@@ -42,7 +43,10 @@ const SalesOverTimePage = ({
 
                 <div className="my-3 flex items-center justify-between gap-4">
                     <SalesFilter type={reportType} />
-                    <SalesExport exportType={reportType} />
+                    <div className="flex gap-2.5 items-center">
+                        <ReportDateFilter url={route('reports.sales')} />
+                        <SalesExport exportType={reportType} />
+                    </div>
                 </div>
 
                 <DataTable
@@ -91,7 +95,7 @@ const SalesOverTimePage = ({
                                             acc +
                                             Number(item.transaction_count),
                                         0
-                                    ) 
+                                    )
                                 )}
                             </TableCell>
                         </>

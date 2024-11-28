@@ -218,27 +218,29 @@ export default function Page({
                         </div>
                     </div>
                 </div>
-                <Deferred
-                    data={["salesData", "profitData", "months"]}
-                    fallback={<Spinner />}
-                >
-                    <SalesProfitChart
-                        salesData={salesData}
-                        profitData={profitData}
-                        months={months}
-                    />
-                </Deferred>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:px-4">
+                    <Deferred
+                        data={["salesData", "profitData", "months"]}
+                        fallback={<Spinner />}
+                    >
+                        <SalesProfitChart
+                            salesData={salesData}
+                            profitData={profitData}
+                            months={months}
+                        />
+                    </Deferred>
 
-                <Deferred
-                    data={["expensesData", "salesData", "months"]}
-                    fallback={<Spinner />}
-                >
-                    <SalesExpenseChart
-                        salesData={salesData}
-                        expensesData={expensesData}
-                        months={months}
-                    />
-                </Deferred>
+                    <Deferred
+                        data={["expensesData", "salesData", "months"]}
+                        fallback={<Spinner />}
+                    >
+                        <SalesExpenseChart
+                            salesData={salesData}
+                            expensesData={expensesData}
+                            months={months}
+                        />
+                    </Deferred>
+                </div>
             </section>
         </Authenticated>
     );

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,6 +22,7 @@ class ExpensesReportController extends Controller
         return Inertia::render('reports/Expenses', [
             'expenses' => $expenses,
             'filters' => $filters,
+            'users' => fn () => User::where('branch_id', auth()->user()->branch_id)->get(),
         ]);
     }
 
@@ -56,8 +58,8 @@ class ExpensesReportController extends Controller
         return [
             'user_id' => $request->user_id,
             'branch_id' => $request->branch_id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+            'start_date' => $request->startDate,
+            'end_date' => $request->endDate,
         ];
     }
 

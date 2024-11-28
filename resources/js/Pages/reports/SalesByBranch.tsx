@@ -7,6 +7,7 @@ import { dateFormat, numberFormat } from "@/lib/utils";
 import { TableCell } from "@/components/ui/table";
 import BranchSalesFilter from "./filters/BranchSalesFilter";
 import { BranchSalesExport } from "./exports/BranchSalesExport";
+import ReportDateFilter from "@/components/filters/reports-date-filter";
 
 const SalesOverTimePage = ({
     salesByBranch,
@@ -41,7 +42,12 @@ const SalesOverTimePage = ({
 
                 <div className="my-3 flex items-center justify-between gap-4">
                     <BranchSalesFilter type={reportType} />
-                    <BranchSalesExport exportType={reportType} />
+                    <div className="flex items-center gap-2.5">
+                        <ReportDateFilter
+                            url={route("reports.sales-by-branch")}
+                        />
+                        <BranchSalesExport exportType={reportType} />
+                    </div>
                 </div>
 
                 <DataTable
@@ -72,6 +78,16 @@ const SalesOverTimePage = ({
                                 {numberFormat(
                                     salesByBranch.reduce(
                                         (acc, item) =>
+                                            acc +
+                                            Number(item.transaction_count),
+                                        0
+                                    )
+                                )}
+                            </TableCell>
+                            <TableCell className="left">
+                                {numberFormat(
+                                    salesByBranch.reduce(
+                                        (acc, item) =>
                                             acc + Number(item.total_sales),
                                         0
                                     ) /
@@ -81,16 +97,6 @@ const SalesOverTimePage = ({
                                                 Number(item.transaction_count),
                                             0
                                         )
-                                )}
-                            </TableCell>
-                            <TableCell className="left">
-                                {numberFormat(
-                                    salesByBranch.reduce(
-                                        (acc, item) =>
-                                            acc +
-                                            Number(item.transaction_count),
-                                        0
-                                    )
                                 )}
                             </TableCell>
                         </>

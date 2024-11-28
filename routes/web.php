@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BranchSalesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CreditSalepaymentController;
@@ -36,11 +37,15 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::get('seller-dashboard', [SellerDashboard::class, 'index'])->middleware(['auth', 'verified'])->name('seller-dashboard');
 
-Route::patch('/branches/switch/{branch}', [\App\Http\Controllers\BranchController::class, 'switchBranch'])
+Route::patch('/branches/switch/{branch}', [BranchController::class, 'switchBranch'])
     ->middleware(['auth', 'verified'])
     ->name('branches.switch');
 
-Route::resource('users', \App\Http\Controllers\UserController::class)
+Route::resource('/setup/branches', BranchController::class)
+    ->middleware(['auth', 'verified'])
+    ->only(['index', 'create', 'show', 'store', 'update', 'destroy']);
+
+Route::resource('/setup/users', \App\Http\Controllers\UserController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 

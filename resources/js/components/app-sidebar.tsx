@@ -77,6 +77,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         title: "Users",
                         url: route("users.index"),
                     },
+                    {
+                        title: "Branches",
+                        url: route("branches.index"),
+                    }
                 ],
             },
             {
@@ -86,7 +90,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 isVisible: user.role === "admin",
                 items: [
                     {
-                        title: "Sales over time",
+                        title: "Daily sales",
                         url: route("reports.sales"),
                     },
                     {

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChevronsUpDown, Building2 } from "lucide-react"
+import { ChevronsUpDown, Building2, PlusCircle } from "lucide-react"
 
 import {
   DropdownMenu,
@@ -60,7 +60,7 @@ export function BranchSwitcher({
             </DropdownMenuLabel>
             {branches.map((branch, index) => (
               <DropdownMenuItem
-                key={branch.name}
+                key={branch.id}
                 onClick={() => router.patch(route("branches.switch", branch.id), {}, {
                   preserveState: false,
                   preserveScroll: true,
@@ -79,9 +79,9 @@ export function BranchSwitcher({
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem title="You can not add branch on demo account" className="gap-2 p-2">
+            <DropdownMenuItem onClick={() => router.visit(route('branches.index'))} title="You can not add branch on demo account" className="gap-2 p-2">
               <div className="flex size-6 items-center justify-center rounded-md border bg-background">
-                <Building2 className="size-4" />
+                <PlusCircle className="size-4" />
               </div>
               <div className="font-medium text-muted-foreground">Add Branch</div>
             </DropdownMenuItem>

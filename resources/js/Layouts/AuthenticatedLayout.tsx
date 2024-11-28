@@ -25,10 +25,7 @@ export default function Authenticated({
                     <header className="grid h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 mb-2 mt-1">
                         <div className="flex items-center justify-end  w-full gap-2 px-4 ">
                             <div className="flex items-center gap-2 mr-auto">
-                                <span className="-ml-1 rounded-full p-3 border bg-white">
-
-                                <AlignJustifyIcon className="size-4" />
-                                </span>
+                                <SidebarTrigger />
                                 <img className="h-10 w-fit rounded-full" loading={'lazy'} src={'/images/logo_text.png'} alt="logo 2" />
                             </div>
                             <Separator

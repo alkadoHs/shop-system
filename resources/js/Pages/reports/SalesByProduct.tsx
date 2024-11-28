@@ -14,6 +14,7 @@ import BranchSalesFilter from "./filters/BranchSalesFilter";
 import { BranchSalesExport } from "./exports/BranchSalesExport";
 import ProductSalesFilter from "./filters/ProductSalesFilter";
 import { ProductSalesExport } from "./exports/ProductSalesExport";
+import ReportDateFilter from "@/components/filters/reports-date-filter";
 
 const SalesByProductPage = ({
     salesByProduct,
@@ -48,7 +49,11 @@ const SalesByProductPage = ({
 
                 <div className="my-3 flex items-center justify-between gap-4">
                     <ProductSalesFilter type={reportType} />
-                    <ProductSalesExport exportType={reportType} />
+
+                    <div className="flex gap-2.5 items-center">
+                        <ReportDateFilter url={route("reports.sales-by-product")} />
+                        <ProductSalesExport exportType={reportType} />
+                    </div>
                 </div>
 
                 <DataTable

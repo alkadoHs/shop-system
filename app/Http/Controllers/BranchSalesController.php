@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\BranchSalesExport;
 use App\Models\Order;
+use App\Models\Scopes\BranchScope;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,20 +20,8 @@ class BranchSalesController extends Controller
         [$startDate, $endDate, $reportType] = $this->parseReportDates(request());
 
         // Query to get the sales data by branch
-        $query = Order::select(
-                'branches.name as branch_name', // Get branch name from the Branch model
-                DB::raw('SUM(order_items.total) as total_sales'),
-                DB::raw('COUNT(orders.id) as transaction_count'),
-                DB::raw('AVG(order_items.total) as avg_sales'),
-                DB::raw('SUM(order_items.profit) as total_profit')
-            )
-            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-            ->join('branches', 'orders.branch_id', '=', 'branches.id') // Join with branches table using branch_id
-            ->where('orders.status', 'paid')
-            ->whereBetween('orders.created_at', [$startDate, $endDate]);
+        $salesByBranch = $this->getSalesByBranch($startDate, $endDate);
 
-
-        $salesByBranch = $query->groupBy('branches.name')->get();
 
         // Return the data to the frontend for rendering
         return Inertia::render('reports/SalesByBranch', [
@@ -103,18 +92,20 @@ class BranchSalesController extends Controller
 
     private function getSalesByBranch($startDate, $endDate)
     {
-        return DB::table('orders')->select(
-                'branches.name as branch_name',
-                DB::raw('SUM(order_items.total) as total_sales'),
-                DB::raw('COUNT(orders.id) as transaction_count'),
-                DB::raw('AVG(order_items.total) as avg_sales'),
-                DB::raw('SUM(order_items.profit) as total_profit')
-            )
-            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-            ->join('branches', 'orders.branch_id', '=', 'branches.id')
-            ->where('orders.status', 'paid')
-            ->whereBetween('orders.created_at', [$startDate, $endDate])
-            ->groupBy('branches.name')
-            ->get();
+        return Order::select(
+            'branches.name as branch_name', // Get branch name from the Branch model
+            DB::raw('SUM(order_items.total) as total_sales'),
+            DB::raw('COUNT(orders.id) as transaction_count'),
+            DB::raw('AVG(order_items.total) as avg_sales'),
+            DB::raw('SUM(order_items.profit) as total_profit')
+        )
+        ->withoutGlobalScopes([BranchScope::class, 'scopeBranchSales'])
+        ->join('branches', 'orders.branch_id', '=', 'branches.id') // Join with branches table using branch_id
+        ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+        ->where('orders.status', 'paid')
+        ->whereRelation('branch', 'company_id', auth()->user()->company_id)
+        ->whereBetween('orders.created_at', [$startDate, $endDate])
+        ->groupBy('branches.name')
+        ->get();
     }
 }

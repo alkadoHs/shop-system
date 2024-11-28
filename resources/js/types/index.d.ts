@@ -3,6 +3,9 @@ import { Config } from 'ziggy-js';
 export interface branch {
     id: number;
     name: string;
+    users_count: number;
+    products_count: number;
+    created_at: string;
 }
 
 export interface Company {

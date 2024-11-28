@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBranchRequest;
 use App\Http\Requests\UpdateBranchRequest;
 use App\Models\Branch;
+use App\Models\Scopes\BranchScope;
+use Illuminate\Database\Eloquent\Builder;
+use Inertia\Inertia;
 
 class BranchController extends Controller
 {
@@ -13,7 +16,11 @@ class BranchController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('branches/Index', [
+            'branches' => Inertia::defer(fn () =>  Branch::withCount(['users', 'products' => function (Builder $query) {
+                $query->withoutGlobalScope(BranchScope::class);
+            }])->get()),
+        ]);
     }
 
     /**
@@ -29,7 +36,13 @@ class BranchController extends Controller
      */
     public function store(StoreBranchRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $validated['company_id'] = auth()->user()->company_id;
+
+        Branch::create($validated);
+
+        return back();
     }
 
     /**

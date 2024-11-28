@@ -21,7 +21,7 @@ class OrderItem extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope('scopeBranch', function (Builder $builder) {
+        static::addGlobalScope('scopeBranchSales', function (Builder $builder) {
             $builder->whereRelation('order', 'branch_id', auth()->user()->branch_id);
         });
     }
