@@ -15,8 +15,8 @@ class OrderItem extends Model
         'p_qty',
         'buy_price',
         'price',
-        'total',
-        'profit',
+        'company',
+        'imei',
     ];
 
     protected static function booted(): void

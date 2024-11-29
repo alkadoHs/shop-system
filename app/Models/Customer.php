@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[ObservedBy(CustomerObserver::class)]
 class Customer extends Model
 {
-    protected $fillable = ['branch_id','name', 'contact'];
+    protected $fillable = ['branch_id','name', 'contact', 'location'];
 
     public function branch(): BelongsTo
     {

@@ -27,6 +27,8 @@ class OrderController extends Controller
             'payment_method_id' => 'required',
             'customer' => 'nullable|string|max:50',
             'status' => 'required',
+            'contact' => 'required|max:50',
+            'location' => 'required|max:100',
         ]);
 
 
@@ -36,6 +38,8 @@ class OrderController extends Controller
            if ($validated['customer'])
                 $customer = Customer::create([
                     'name' => $validated['customer'],
+                    'contact' => $validated['contact'],
+                    'location' => $validated['location'],
                 ]);
    
            // create an order

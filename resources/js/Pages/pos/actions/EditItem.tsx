@@ -5,8 +5,14 @@ import { useDebouncedCallback } from "use-debounce";
 import { router } from "@inertiajs/react";
 import { toast } from "sonner";
 import { NumericFormat } from "react-number-format";
+import { Button } from "@/components/ui/button";
+import { ScanBarcode } from "lucide-react";
+import BarcodeScannerComponent from "react-qr-barcode-scanner";
+import BarcodeModal from "./BarcodeModal";
 
 const EditItem = ({ item }: { item: cartItem }) => {
+    const [data, setData] = React.useState("Not Found");
+
     const handleChange = useDebouncedCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             const qty = Number(e.target.value.replaceAll(",", ""));
@@ -31,9 +37,9 @@ const EditItem = ({ item }: { item: cartItem }) => {
     );
 
     return (
-        <div className="font-medium">
+        <div className="font-medium grid gap-2">
             <NumericFormat
-                className="text-right max-w-20 min-w-20"
+                className="text-right min-w-20"
                 customInput={Input}
                 defaultValue={item.qty}
                 onChange={handleChange}
@@ -41,6 +47,26 @@ const EditItem = ({ item }: { item: cartItem }) => {
                 allowLeadingZeros
                 allowNegative={false}
             />
+
+            <Input type="text" name="company" placeholder="Company name" />
+
+            <div className="flex items-center gap-2">
+                <Input type="text" name="imei" placeholder="IMEI number" />
+                <Button
+                    variant={"secondary"}
+                    className="text-orange-500"
+                    size={"icon"}
+                >
+                    <BarcodeModal
+                        onUpdate={(err, result) => {
+                            if (result) setData(result.text);
+                            else setData("Not Found");
+                        }}
+                    />
+                </Button>
+            </div>
+
+            <p>{data}</p>
         </div>
     );
 };

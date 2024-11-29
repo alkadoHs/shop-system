@@ -20,6 +20,8 @@ const OrderDetails = ({ payments, total }: { payments: Payment[], total: number 
         status: "paid",
         payment_method_id: "",
         customer: "",
+        contact: "",
+        location: "",
     });
 
     const submit: FormEventHandler = (e) => {
@@ -101,8 +103,37 @@ const OrderDetails = ({ payments, total }: { payments: Payment[], total: number 
                                 setData("customer", e.target.value)
                             }
                             placeholder="Name"
+                            required
                         />
                         <InputError message={errors.customer} />
+                    </div>
+                    <div className="space-y-1">
+                        <Label htmlFor="contact">Phone number</Label>
+                        <Input
+                            type="text"
+                            id="contact"
+                            value={data.contact}
+                            onChange={(e) =>
+                                setData("contact", e.target.value)
+                            }
+                            placeholder=""
+                            required
+                        />
+                        <InputError message={errors.contact} />
+                    </div>
+                    <div className="space-y-1">
+                        <Label htmlFor="location">Location</Label>
+                        <Input
+                            type="text"
+                            id="location"
+                            value={data.location}
+                            onChange={(e) =>
+                                setData("location", e.target.value)
+                            }
+                            placeholder=""
+                            required
+                        />
+                        <InputError message={errors.location} />
                     </div>
                     <div className="flex gap-2">
                         <LoadingButton type="submit" loading={processing} disabled={total <= 0}>
