@@ -11,7 +11,7 @@ import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import BarcodeModal from "./BarcodeModal";
 
 const EditItem = ({ item }: { item: cartItem }) => {
-    const [data, setData] = React.useState("Not Found");
+    const [imei, setImei] = React.useState("Scan barcode");
 
     const handleChange = useDebouncedCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +38,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
 
     return (
         <div className="font-medium grid gap-2">
+            <p className="text-lg text-primary">- {item.product?.name}</p>
             <NumericFormat
                 className="text-right min-w-20"
                 customInput={Input}
@@ -51,7 +52,13 @@ const EditItem = ({ item }: { item: cartItem }) => {
             <Input type="text" name="company" placeholder="Company name" />
 
             <div className="flex items-center gap-2">
-                <Input type="text" name="imei" placeholder="IMEI number" />
+                <Input
+                    type="text"
+                    name="imei"
+                    value={imei}
+                    onChange={(e) => setImei(e.target.value)}
+                    placeholder="IMEI number"
+                />
                 <Button
                     variant={"secondary"}
                     className="text-orange-500"
@@ -59,14 +66,13 @@ const EditItem = ({ item }: { item: cartItem }) => {
                 >
                     <BarcodeModal
                         onUpdate={(err, result) => {
-                            if (result) setData(result.text);
-                            else setData("Not Found");
+                            if (result) setImei(result.text);
+                            else setImei("Not Found");
                         }}
+                        imei={imei}
                     />
                 </Button>
             </div>
-
-            <p>{data}</p>
         </div>
     );
 };

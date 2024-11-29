@@ -10,8 +10,10 @@ import BarcodeScannerComponent from "react-qr-barcode-scanner";
 
 const BarcodeModal = ({
     onUpdate,
+    imei,
 }: {
     onUpdate: (err: unknown, result: any) => void;
+    imei?: string;
 }) => {
     return (
         <ResponsiveModal>
@@ -30,6 +32,8 @@ const BarcodeModal = ({
                     height={500}
                     onUpdate={onUpdate}
                 />
+                <br />
+                <p>ID: {imei}</p>
             </ResponsiveModalContent>
         </ResponsiveModal>
     );

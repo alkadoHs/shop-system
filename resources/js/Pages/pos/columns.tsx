@@ -5,6 +5,8 @@ import { numberFormat } from "@/lib/utils";
 import ActionButton from "@/components/action-button";
 import EditItem from "./actions/EditItem";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
 
 export type cartItem = {
     id: number;
@@ -23,16 +25,22 @@ export const cartProductColumns: ColumnDef<Product>[] = [
                 <a
                     onClick={(e) => {
                         e.preventDefault();
-                        router.post(route("carts.add", product.id), {}, {
-                            preserveScroll: true,
-                            preserveState: true,
-                            onSuccess: () => {
-                                toast.success("Item added to cart");
-                            },
-                            onError: (errors) => {
-                                toast.error("Unexpected error occurred, pleease try again later!");;
-                            },
-                        });
+                        router.post(
+                            route("carts.add", product.id),
+                            {},
+                            {
+                                preserveScroll: true,
+                                preserveState: true,
+                                onSuccess: () => {
+                                    toast.success("Item added to cart");
+                                },
+                                onError: (errors) => {
+                                    toast.error(
+                                        "Unexpected error occurred, pleease try again later!"
+                                    );
+                                },
+                            }
+                        );
                     }}
                     className="text-primary hover:underline"
                 >
@@ -74,37 +82,11 @@ export const cartProductColumns: ColumnDef<Product>[] = [
 
 export const cartItemColumns: ColumnDef<cartItem>[] = [
     {
-        accessorKey: "name",
-        header: "Name",
-        cell: ({ row }) => {
-            const product = row.original.product; // Access the full product data
-            return (
-                <a className="text-primary hover:underline">{product.name}</a>
-            );
-        },
-    },
-    {
         accessorKey: "qty",
-        header: "Qty",
+        header: "Product",
         cell: ({ row }) => {
             const qty = row.original.qty;
             return <EditItem item={row.original} />;
-        },
-    },
-    {
-        accessorKey: "price",
-        header: "Price",
-        cell: ({ row }) => {
-            const price = row.original.price;
-            return <div className="font-medium">{numberFormat(price)}</div>;
-        },
-    },
-    {
-        accessorKey: "total",
-        header: "Total",
-        cell: ({ row }) => {
-            const total = row.original.qty * row.original.price;
-            return <div className="font-medium">{numberFormat(total)}</div>;
         },
     },
     // delete action
@@ -114,28 +96,35 @@ export const cartItemColumns: ColumnDef<cartItem>[] = [
         cell: ({ row }) => {
             const item = row.original; // Access the full product data
             return (
-                <ActionButton
-                    variant="delete"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        if (
-                            confirm(
-                                "Are you sure you want to delete this item?"
+                <div className="flex items-center justify-end gap-2">
+                    <Button
+                        variant="destructive"
+                        size={"icon"}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (
+                                confirm(
+                                    "Are you sure you want to delete this item?"
+                                )
                             )
-                        )
-                            router.delete(route("carts.remove", item.id), {
-                                preserveScroll: true,
-                                preserveState: true,
-                                onSuccess: () => {
-                                    toast.success("Item removed from cart");
-                                },
-                                onError: (errors) => {
-                                    toast.error("Unexpected error occurred, pleease try again later!");;
-                                },
-                            });
-                    }}
-                    className="text-red-600 hover:underline"
-                />
+                                router.delete(route("carts.remove", item.id), {
+                                    preserveScroll: true,
+                                    preserveState: true,
+                                    onSuccess: () => {
+                                        toast.success("Item removed from cart");
+                                    },
+                                    onError: (errors) => {
+                                        toast.error(
+                                            "Unexpected error occurred, pleease try again later!"
+                                        );
+                                    },
+                                });
+                        }}
+                        className="text-red-600 hover:underline"
+                    >
+                        <Trash2 />
+                    </Button>
+                </div>
             );
         },
     },
