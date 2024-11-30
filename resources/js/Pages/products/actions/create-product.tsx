@@ -138,7 +138,7 @@ export default function CreateProduct() {
                                 />
                                 <InputError message={errors.stock_alert} />
                             </div>
-                            <div className="col-span-3 md:col-span-2 grid w-full max-w-sm items-center gap-1.5">
+                            {/* <div className="col-span-3 md:col-span-2 grid w-full max-w-sm items-center gap-1.5">
                                 <Label htmlFor="expire_date">Expire date</Label>
                                 <Input
                                     type="date"
@@ -188,7 +188,7 @@ export default function CreateProduct() {
                                 />
                                 <InputError message={errors.whole_price} />
                             </div>
-                        </div>
+                        </div> */}
                         <ResponsiveModalFooter className="gap-4">
                             <Button
                                 type="button"
