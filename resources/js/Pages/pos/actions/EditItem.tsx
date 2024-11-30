@@ -15,7 +15,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
     const { data, setData, patch, processing, errors, reset } = useForm({
         qty: item.qty,
         company: item.company,
-        imei: item.imei ?? imei,
+        imei: imei,
     });
 
     const save: FormEventHandler = (e) => {
@@ -77,6 +77,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
                     stopStream={stopStream}
                 />
             </div>
+            <p>Imei: {item.imei}</p>
             <InputError message={errors.imei} />
 
             <div>
