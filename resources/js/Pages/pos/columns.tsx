@@ -13,6 +13,8 @@ export type cartItem = {
     product: Product;
     qty: number;
     price: number;
+    imei: string;
+    company: string;
 };
 
 export const cartProductColumns: ColumnDef<Product>[] = [
@@ -99,6 +101,7 @@ export const cartItemColumns: ColumnDef<cartItem>[] = [
                 <div className="flex items-center justify-end gap-2">
                     <Button
                         variant="destructive"
+                        type="button"
                         size={"icon"}
                         onClick={(e) => {
                             e.preventDefault();

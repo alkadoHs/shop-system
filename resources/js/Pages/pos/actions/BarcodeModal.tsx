@@ -5,21 +5,26 @@ import {
     ResponsiveModalTrigger,
 } from "@/components/ui/responsoive-model";
 import { ScanBarcode } from "lucide-react";
-import React from "react";
+import { Dispatch, SetStateAction } from "react";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 
 const BarcodeModal = ({
     onUpdate,
     imei,
+    modalOpen,
+    onModalOpen,
 }: {
     onUpdate: (err: unknown, result: any) => void;
     imei?: string;
+    modalOpen: boolean;
+    onModalOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
     return (
-        <ResponsiveModal>
+        <ResponsiveModal open={modalOpen} onOpenChange={onModalOpen}>
             <ResponsiveModalTrigger>
                 <Button
                     variant={"secondary"}
+                    type="button"
                     className="text-orange-500"
                     size={"icon"}
                 >

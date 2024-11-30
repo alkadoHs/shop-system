@@ -20,7 +20,15 @@ class CartController extends Controller
                 return back()->withErrors(['qty' => "Stock is not enough, the current stock for the product: {$product->name} is {$product->stock}"]);
             } else {
                 //TODO: solve selling by whole price here.
-                $productExist->increment('qty');
+
+                // $productExist->increment('qty');
+
+                $cart->cartItems()->create([
+                    'product_id' => $product->id,
+                    'price' => $product->sale_price,
+                    'buy_price' => $product->buy_price,
+                    'qty' => 1,
+                ]);
             }
         } else {
             $cart->cartItems()->create([
@@ -38,6 +46,8 @@ class CartController extends Controller
     {
         $validated = $request->validate([
             'qty' => 'required|numeric|min:0',
+            'company' => 'required|string|max:100',
+            'imei' => 'required|string|max:100',
         ]);
 
         $product = Product::find($item->product_id);
@@ -46,11 +56,13 @@ class CartController extends Controller
             return back()->withErrors(['qty' => "Stock is not enough, the current stock for the product: {$product->name} is {$product->stock}"]);
         }
 
-        if ($validated['qty'] >= $product->whole_stock && ($product->whole_stock > 0 && $product->whole_price > 0)) {
-            $item->update(['qty' => $validated['qty'], 'price' => $product->whole_price]);
-        } else {
-            $item->update(['qty' => $validated['qty'], 'price'=> $product->sale_price]);
-        }
+        $item->update($validated);
+
+        // if ($validated['qty'] >= $product->whole_stock && ($product->whole_stock > 0 && $product->whole_price > 0)) {
+        //     $item->update(['qty' => $validated['qty'], 'price' => $product->whole_price]);
+        // } else {
+        //     $item->update(['qty' => $validated['qty'], 'price'=> $product->sale_price]);
+        // }
         
         return back();
     }

@@ -1,79 +1,85 @@
-import React from "react";
+import React, { FormEventHandler } from "react";
 import { cartItem } from "../columns";
 import { Input } from "@/components/ui/input";
-import { useDebouncedCallback } from "use-debounce";
-import { router } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { toast } from "sonner";
-import { NumericFormat } from "react-number-format";
-import { Button } from "@/components/ui/button";
-import { ScanBarcode } from "lucide-react";
-import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import BarcodeModal from "./BarcodeModal";
+import InputError from "@/Components/InputError";
+import { LoadingButton } from "@/components/ui/loanding-button";
 
 const EditItem = ({ item }: { item: cartItem }) => {
     const [imei, setImei] = React.useState("Scan barcode");
+    const [open, setOpen] = React.useState(false);
 
-    const handleChange = useDebouncedCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            const qty = Number(e.target.value.replaceAll(",", ""));
+    const { data, setData, patch, processing, errors, reset } = useForm({
+        qty: item.qty,
+        company: item.company,
+        imei: item.imei ?? imei,
+    });
 
-            if (qty > 0)
-                router.patch(
-                    route("carts.update", item.id),
-                    { qty },
-                    {
-                        preserveScroll: true,
-                        preserveState: false,
-                        onSuccess: () => {
-                            toast.success("Item updated successfully");
-                        },
-                        onError: (errors) => {
-                            toast.error(errors.qty);
-                        },
-                    }
-                );
-        },
-        1000
-    );
+    const save: FormEventHandler = (e) => {
+        e.preventDefault();
+
+        patch(route("carts.update", item.id), {
+            onSuccess: () => {
+                toast.success("Saved successfully.");
+                reset();
+            },
+            onError: () => {
+                toast.error("Failed to save due to errors.");
+            },
+        });
+    };
 
     return (
-        <div className="font-medium grid gap-2">
+        <form className="font-medium grid gap-2" onSubmit={save}>
             <p className="text-lg text-primary">- {item.product?.name}</p>
-            <NumericFormat
+            <Input
                 className="text-right min-w-20"
-                customInput={Input}
-                defaultValue={item.qty}
-                onChange={handleChange}
-                thousandSeparator=","
-                allowLeadingZeros
-                allowNegative={false}
+                value={data.qty}
+                onChange={(e) => setData("qty", parseFloat(e.target.value))}
             />
+            <InputError message={errors.qty} />
 
-            <Input type="text" name="company" placeholder="Company name" />
+            <Input
+                type="text"
+                name="company"
+                value={data.company}
+                onChange={(e) => setData("company", e.target.value)}
+                placeholder="Company name"
+                required
+            />
+            <InputError message={errors.company} />
 
             <div className="flex items-center gap-2">
                 <Input
                     type="text"
                     name="imei"
-                    value={imei}
-                    onChange={(e) => setImei(e.target.value)}
+                    value={data.imei}
+                    onChange={(e) => setData("imei", e.target.value)}
                     placeholder="IMEI number"
+                    required
                 />
-                <Button
-                    variant={"secondary"}
-                    className="text-orange-500"
-                    size={"icon"}
-                >
-                    <BarcodeModal
-                        onUpdate={(err, result) => {
-                            if (result) setImei(result.text);
-                            else setImei("Not Found");
-                        }}
-                        imei={imei}
-                    />
-                </Button>
+                <BarcodeModal
+                    onUpdate={(err, result) => {
+                        if (result) {
+                            setImei(result.text);
+                            setOpen(false);
+                        } else setImei("Not Found");
+                    }}
+                    imei={imei}
+                    modalOpen={open}
+                    onModalOpen={setOpen}
+                />
             </div>
-        </div>
+            <InputError message={errors.imei} />
+
+            <div>
+                <LoadingButton type="submit" loading={processing}>
+                    Save
+                </LoadingButton>
+            </div>
+        </form>
     );
 };
 

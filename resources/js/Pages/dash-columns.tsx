@@ -61,10 +61,6 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
         header: "Qty sold",
     },
     {
-        accessorKey: "p_qty",
-        header: "Pending Qty",
-    },
-    {
         accessorKey: "price",
         header: "Price",
         cell: ({ row }) => {
@@ -90,16 +86,29 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
         header: "Action",
         cell: ({ row }) => {
             return (
-                <Button onClick={() => {
-                    if(confirm("Are you sure you want to delete this transaction?")) {
-                        router.delete(route('order-items.destroy', row.original.id), {
-                            onSuccess: () => {
-                                toast.success("Transaction deleted successfully");
-                            },
-                            only: ['transactions'],
-                        })
-                    }
-                }} variant={"destructive"} size={"icon"}>
+                <Button
+                    onClick={() => {
+                        if (
+                            confirm(
+                                "Are you sure you want to delete this transaction?"
+                            )
+                        ) {
+                            router.delete(
+                                route("order-items.destroy", row.original.id),
+                                {
+                                    onSuccess: () => {
+                                        toast.success(
+                                            "Transaction deleted successfully"
+                                        );
+                                    },
+                                    only: ["transactions"],
+                                }
+                            );
+                        }
+                    }}
+                    variant={"destructive"}
+                    size={"icon"}
+                >
                     <SquareXIcon className="size-4" />
                 </Button>
             );

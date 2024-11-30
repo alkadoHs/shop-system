@@ -53,7 +53,7 @@ class OrderController extends Controller
    
            // create order items
            $order->orderItems()->createMany(auth()->user()->cartItems()
-                ->get(['product_id', 'qty', 'buy_price', 'price'])
+                ->get(['product_id', 'qty', 'buy_price', 'price', 'imei', 'company'])
                 ->map(function (CartItem $item) use( $validated) {
                 $item->product->decrement('stock', $item->qty);
     
@@ -63,6 +63,8 @@ class OrderController extends Controller
                     'p_qty' => $validated['status'] == 'pending' ? $item->qty : 0,
                     'buy_price' => $item->buy_price,
                     'price' => $item->price,
+                    'imei' => $item->imei,
+                    'company' => $item->company,
                 ];
             }));
 
