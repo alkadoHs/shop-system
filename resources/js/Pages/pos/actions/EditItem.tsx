@@ -15,7 +15,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
     const { data, setData, patch, processing, errors, reset } = useForm({
         qty: item.qty,
         company: item.company,
-        imei: imei,
+        imei: item.imei ?? imei,
     });
 
     const save: FormEventHandler = (e) => {
@@ -31,7 +31,6 @@ const EditItem = ({ item }: { item: cartItem }) => {
             },
         });
     };
-
 
     return (
         <form className="font-medium grid gap-2" onSubmit={save}>
@@ -76,7 +75,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
                     stopStream={stopStream}
                 />
             </div>
-            <p>Imei: {item.imei}</p>
+            <p>Imei: {imei}</p>
             <InputError message={errors.imei} />
 
             <div>
