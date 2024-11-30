@@ -66,7 +66,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
                         if (result) {
                             setImei(result.text);
                             setStopStream(true);
-                            // setTimeout(() => setOpen(false), 0);
+                            setTimeout(() => setOpen(false), 0);
                         } else setImei("Not Found");
                     }}
                     imei={imei}
