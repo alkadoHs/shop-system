@@ -8,7 +8,7 @@ import InputError from "@/Components/InputError";
 import { LoadingButton } from "@/components/ui/loanding-button";
 
 const EditItem = ({ item }: { item: cartItem }) => {
-    const [imei, setImei] = React.useState("Scan barcode");
+    const [imei, setImei] = React.useState("");
     const [open, setOpen] = React.useState(false);
     const [stopStream, setStopStream] = React.useState(false);
 
