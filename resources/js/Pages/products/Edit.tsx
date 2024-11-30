@@ -37,7 +37,7 @@ export default function CreateProduct({ product }: { product: Product }) {
                         <CardTitle>Update {product.name}</CardTitle>
                     </CardHeader>
                     <CardContent className="max-w-4xl">
-                        <form onSubmit={onsubmit}>
+                        <form onSubmit={onsubmit} className="space-y-4">
                             <div className="grid grid-cols-6 gap-4">
                                 <div className="col-span-6 md:col-span-3 grid w-full max-w-sm items-center gap-1.5">
                                     <Label htmlFor="name">Name</Label>
@@ -133,7 +133,7 @@ export default function CreateProduct({ product }: { product: Product }) {
                                     />
                                     <InputError message={errors.stock_alert} />
                                 </div>
-                                <div className="col-span-3 md:col-span-2 grid w-full max-w-sm items-center gap-1.5">
+                                {/* <div className="col-span-3 md:col-span-2 grid w-full max-w-sm items-center gap-1.5">
                                     <Label htmlFor="expire_date">
                                         Expire date
                                     </Label>
@@ -149,9 +149,9 @@ export default function CreateProduct({ product }: { product: Product }) {
                                         }
                                     />
                                     <InputError message={errors.name} />
-                                </div>
+                                </div> */}
                             </div>
-                            <div className="grid grid-cols-6 space-x-4 my-4">
+                            {/* <div className="grid grid-cols-6 space-x-4 my-4">
                                 <div className="col-span-3 md:col-span-2 grid w-full max-w-sm items-center gap-1.5">
                                     <Label htmlFor="whole_sale">
                                         whole sale stock
@@ -194,7 +194,7 @@ export default function CreateProduct({ product }: { product: Product }) {
                                     />
                                     <InputError message={errors.whole_price} />
                                 </div>
-                            </div>
+                            </div>*/}
                             <div className="flex gap-4 items-center">
                                 <Button
                                     type="button"
@@ -214,7 +214,7 @@ export default function CreateProduct({ product }: { product: Product }) {
                                         "Update"
                                     )}
                                 </Button>
-                            </div>
+                            </div> 
                         </form>
                     </CardContent>
                 </Card>

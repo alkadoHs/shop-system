@@ -15,7 +15,13 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { PlusCircle, PlusIcon } from "lucide-react";
-import { ResponsiveModal, ResponsiveModalContent, ResponsiveModalFooter, ResponsiveModalHeader, ResponsiveModalTrigger } from "@/components/ui/responsoive-model";
+import {
+    ResponsiveModal,
+    ResponsiveModalContent,
+    ResponsiveModalFooter,
+    ResponsiveModalHeader,
+    ResponsiveModalTrigger,
+} from "@/components/ui/responsoive-model";
 import { LoadingButton } from "@/components/ui/loanding-button";
 
 export default function CreateProduct() {
@@ -58,7 +64,7 @@ export default function CreateProduct() {
                     <ResponsiveModalHeader className="flex flex-col gap-1">
                         <DialogTitle>Create product</DialogTitle>
                     </ResponsiveModalHeader>
-                    <form onSubmit={onsubmit}>
+                    <form onSubmit={onsubmit} className="space-y-4">
                         <div className="grid grid-cols-6 gap-4">
                             <div className="col-span-6 md:col-span-3 grid w-full max-w-sm items-center gap-1.5">
                                 <Label htmlFor="name">Name</Label>
@@ -187,8 +193,8 @@ export default function CreateProduct() {
                                     thousandSeparator=","
                                 />
                                 <InputError message={errors.whole_price} />
-                            </div>
-                        </div> */}
+                            </div>  */}
+                        </div>
                         <ResponsiveModalFooter className="gap-4">
                             <Button
                                 type="button"

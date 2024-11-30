@@ -68,18 +68,18 @@ export const cartProductColumns: ColumnDef<Product>[] = [
             return <div className="font-medium">{numberFormat(price)}</div>;
         },
     },
-    {
-        accessorKey: "whole_stock",
-        header: "Whole stock",
-    },
-    {
-        accessorKey: "whole_price",
-        header: "Whole price",
-        cell: ({ row }) => {
-            const price = row.original.whole_price;
-            return <div className="font-medium">{numberFormat(price)}</div>;
-        },
-    },
+    // {
+    //     accessorKey: "whole_stock",
+    //     header: "Whole stock",
+    // },
+    // {
+    //     accessorKey: "whole_price",
+    //     header: "Whole price",
+    //     cell: ({ row }) => {
+    //         const price = row.original.whole_price;
+    //         return <div className="font-medium">{numberFormat(price)}</div>;
+    //     },
+    // },
 ];
 
 export const cartItemColumns: ColumnDef<cartItem>[] = [

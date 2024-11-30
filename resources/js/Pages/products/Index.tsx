@@ -102,16 +102,16 @@ const Products = ({ products }: { products: Product[] }) => {
                                     <TableHead className="text-right">
                                         Selling price
                                     </TableHead>
-                                    <TableHead className="text-right">
+                                    {/* <TableHead className="text-right">
                                         Whole price
                                     </TableHead>
                                     <TableHead className="text-right">
                                         Whole stock
-                                    </TableHead>
+                                    </TableHead> */}
                                     <TableHead className="text-right">
                                         Stock alert
                                     </TableHead>
-                                    <TableHead>Expire date</TableHead>
+                                    {/* <TableHead>Expire date</TableHead> */}
                                     <TableHead>Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
@@ -144,22 +144,22 @@ const Products = ({ products }: { products: Product[] }) => {
                                         <TableCell className="text-right">
                                             {numberFormat(product.sale_price)}
                                         </TableCell>
-                                        <TableCell className="text-right">
+                                        {/* <TableCell className="text-right">
                                             {numberFormat(product.whole_price)}
                                         </TableCell>
                                         <TableCell className="text-right">
                                             {numberFormat(product.whole_stock)}
-                                        </TableCell>
+                                        </TableCell> */}
                                         <TableCell className="text-right">
                                             {numberFormat(product.stock_alert)}
                                         </TableCell>
-                                        <TableCell className="text-right">
+                                        {/* <TableCell className="text-right">
                                             {product.expire_date
                                                 ? dateFormat(
                                                       product.expire_date
                                                   )
                                                 : "DD/MM/YYYY"}
-                                        </TableCell>
+                                        </TableCell> */}
                                         <TableCell className="flex items-center gap-2 pr-6">
                                             <ActionButton
                                                 onClick={() =>
