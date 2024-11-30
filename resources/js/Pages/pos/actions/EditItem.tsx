@@ -10,11 +10,12 @@ import { LoadingButton } from "@/components/ui/loanding-button";
 const EditItem = ({ item }: { item: cartItem }) => {
     const [imei, setImei] = React.useState("Scan barcode");
     const [open, setOpen] = React.useState(false);
+    const [stopStream, setStopStream] = React.useState(false);
 
     const { data, setData, patch, processing, errors, reset } = useForm({
         qty: item.qty,
         company: item.company,
-        imei: item.imei ?? imei,
+        imei: imei,
     });
 
     const save: FormEventHandler = (e) => {
@@ -31,7 +32,6 @@ const EditItem = ({ item }: { item: cartItem }) => {
         });
     };
 
-    const dismissQrReader = () => {};
 
     return (
         <form className="font-medium grid gap-2" onSubmit={save}>
@@ -66,13 +66,14 @@ const EditItem = ({ item }: { item: cartItem }) => {
                     onUpdate={(err, result) => {
                         if (result) {
                             setImei(result.text);
-                            // setStopStream(true);
-                            // setTimeout(() => setOpen(false), 1000);
+                            setStopStream(true);
+                            // setTimeout(() => setOpen(false), 0);
                         } else setImei("Not Found");
                     }}
                     imei={imei}
                     modalOpen={open}
                     onModalOpen={setOpen}
+                    stopStream={stopStream}
                 />
             </div>
             <p>Imei: {item.imei}</p>

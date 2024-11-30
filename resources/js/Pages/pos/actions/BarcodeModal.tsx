@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
     ResponsiveModal,
-    ResponsiveModalClose,
     ResponsiveModalContent,
-    ResponsiveModalFooter,
     ResponsiveModalTrigger,
 } from "@/components/ui/responsoive-model";
 import { ScanBarcode } from "lucide-react";
@@ -15,11 +13,13 @@ const BarcodeModal = ({
     imei,
     modalOpen,
     onModalOpen,
+    stopStream
 }: {
     onUpdate: (err: unknown, result: any) => void;
     imei?: string;
     modalOpen: boolean;
     onModalOpen: Dispatch<SetStateAction<boolean>>;
+    stopStream: boolean;
 }) => {
     return (
         <ResponsiveModal open={modalOpen} onOpenChange={onModalOpen}>
@@ -38,13 +38,10 @@ const BarcodeModal = ({
                     width={500}
                     height={500}
                     onUpdate={onUpdate}
+                    stopStream={stopStream}
                 />
                 <br />
                 <p>ID: {imei}</p>
-
-                <ResponsiveModalFooter>
-                    <ResponsiveModalClose>Close</ResponsiveModalClose>
-                </ResponsiveModalFooter>
             </ResponsiveModalContent>
         </ResponsiveModal>
     );
