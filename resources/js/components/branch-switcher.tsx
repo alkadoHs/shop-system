@@ -42,7 +42,7 @@ export function BranchSwitcher({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {user.company.name}
+                  {user.company?.name}
                 </span>
                 <span className="truncate text-sm text-primary">{user?.branch?.name}</span>
               </div>
@@ -79,12 +79,12 @@ export function BranchSwitcher({
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => router.visit(route('branches.index'))} title="You can not add branch on demo account" className="gap-2 p-2">
+            { user.role === "admin" && <DropdownMenuItem onClick={() => router.visit(route('branches.index'))} className="gap-2 p-2">
               <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                 <PlusCircle className="size-4" />
               </div>
               <div className="font-medium text-muted-foreground">Add Branch</div>
-            </DropdownMenuItem>
+            </DropdownMenuItem>}
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

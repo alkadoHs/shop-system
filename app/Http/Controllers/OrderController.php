@@ -64,6 +64,7 @@ class OrderController extends Controller
                     'buy_price' => $item->buy_price,
                     'price' => $item->price,
                     'imei' => $item->imei,
+                    'imei2' => $item->imei2,
                     'company' => $item->company,
                 ];
             }));

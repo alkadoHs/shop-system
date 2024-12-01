@@ -14,6 +14,7 @@ export type cartItem = {
     qty: number;
     price: number;
     imei: string;
+    imei2: string;
     company: string;
 };
 

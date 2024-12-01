@@ -9,6 +9,7 @@ import { LoadingButton } from "@/components/ui/loanding-button";
 
 const EditItem = ({ item }: { item: cartItem }) => {
     const [imei, setImei] = React.useState("");
+    const [imei2, setImei2] = React.useState("");
     const [open, setOpen] = React.useState(false);
     const [stopStream, setStopStream] = React.useState(false);
 
@@ -16,6 +17,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
         qty: item.qty,
         company: item.company,
         imei: item.imei ?? imei,
+        imei2: item.imei2,
     });
 
     const save: FormEventHandler = (e) => {
@@ -48,7 +50,6 @@ const EditItem = ({ item }: { item: cartItem }) => {
                 value={data.company}
                 onChange={(e) => setData("company", e.target.value)}
                 placeholder="Company name"
-                required
             />
             <InputError message={errors.company} />
 
@@ -58,8 +59,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
                     name="imei"
                     value={data.imei}
                     onChange={(e) => setData("imei", e.target.value)}
-                    placeholder="IMEI number"
-                    required
+                    placeholder="IMEI1"
                 />
                 <BarcodeModal
                     onUpdate={(err, result) => {
@@ -75,8 +75,32 @@ const EditItem = ({ item }: { item: cartItem }) => {
                     stopStream={stopStream}
                 />
             </div>
-            <p>Imei: {imei}</p>
-            <InputError message={errors.imei} />
+            <p>Imei1: {imei}</p>
+            <InputError message={errors.imei2} />
+            <div className="flex items-center gap-2">
+                <Input
+                    type="text"
+                    name="imei2"
+                    value={data.imei2}
+                    onChange={(e) => setData("imei2", e.target.value)}
+                    placeholder="IMEI2"
+                />
+                <BarcodeModal
+                    onUpdate={(err, result) => {
+                        if (result) {
+                            setImei2(result.text);
+                            setStopStream(true);
+                            setTimeout(() => setOpen(false), 0);
+                        } else setImei2("Not Found");
+                    }}
+                    imei={imei2}
+                    modalOpen={open}
+                    onModalOpen={setOpen}
+                    stopStream={stopStream}
+                />
+            </div>
+            <p>Imei2: {imei2}</p>
+            <InputError message={errors.imei2} />
 
             <div>
                 <LoadingButton type="submit" loading={processing}>

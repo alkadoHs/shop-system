@@ -17,6 +17,7 @@ class OrderItem extends Model
         'price',
         'company',
         'imei',
+        'imei2',
     ];
 
     protected static function booted(): void

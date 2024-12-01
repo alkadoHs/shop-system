@@ -46,8 +46,9 @@ class CartController extends Controller
     {
         $validated = $request->validate([
             'qty' => 'required|numeric|min:0',
-            'company' => 'required|string|max:100',
-            'imei' => 'required|string|max:100',
+            'company' => 'nullable|string|max:100',
+            'imei' => 'nullable|string|max:100',
+            'imei2' => 'nullable|string|max:100',
         ]);
 
         $product = Product::find($item->product_id);
