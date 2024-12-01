@@ -173,6 +173,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 name: "Stock movements",
                 url: route("stock-movements.index"),
                 icon: Map,
+                isVisible: user.role === "admin",
             },
             {
                 name: "Credit sales",
