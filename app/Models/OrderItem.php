@@ -15,6 +15,7 @@ class OrderItem extends Model
         'p_qty',
         'buy_price',
         'price',
+        'discount',
         'company',
         'imei',
         'imei2',

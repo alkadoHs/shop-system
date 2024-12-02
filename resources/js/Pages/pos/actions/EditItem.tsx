@@ -1,7 +1,7 @@
 import React, { FormEventHandler } from "react";
 import { cartItem } from "../columns";
 import { Input } from "@/components/ui/input";
-import { useForm, usePage } from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
 import { toast } from "sonner";
 import BarcodeModal from "./BarcodeModal";
 import InputError from "@/Components/InputError";
@@ -19,7 +19,8 @@ const EditItem = ({ item }: { item: cartItem }) => {
         qty: item.qty,
         company: item.company,
         imei: item.imei ?? imei,
-        imei2: item.imei2,
+        imei2: item.imei2 ?? imei2,
+        discount: item.discount,
     });
 
     const companies: ProductCompany[] = usePage().props.productCompanies as ProductCompany[]
@@ -30,7 +31,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
         patch(route("carts.update", item.id), {
             onSuccess: () => {
                 toast.success("Saved successfully.");
-                reset();
+                router.reload();
             },
             onError: () => {
                 toast.error("Failed to save due to errors.");
@@ -107,6 +108,15 @@ const EditItem = ({ item }: { item: cartItem }) => {
             </div>
             <p>Imei2: {imei2}</p>
             <InputError message={errors.imei2} />
+
+            <p className="text-destructive">Discount</p>
+            <Input
+                className="text-right min-w-20"
+                value={data.discount}
+                onChange={(e) => setData("discount", e.target.value as any)}
+                placeholder="Discount"
+            />
+            <InputError message={errors.discount} />
 
             <div>
                 <LoadingButton type="submit" loading={processing}>

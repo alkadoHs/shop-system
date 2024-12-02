@@ -16,6 +16,7 @@ export type cartItem = {
     imei: string;
     imei2: string;
     company: string;
+    discount: number;
 };
 
 export const cartProductColumns: ColumnDef<Product>[] = [

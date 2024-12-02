@@ -49,6 +49,7 @@ class CartController extends Controller
             'company' => 'nullable|string|max:100',
             'imei' => 'nullable|string|max:100',
             'imei2' => 'nullable|string|max:100',
+            'discount' => 'nullable|numeric|min:0',
         ]);
 
         $product = Product::find($item->product_id);
