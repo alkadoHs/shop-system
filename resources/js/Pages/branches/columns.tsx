@@ -42,25 +42,27 @@ export const branchColumns: ColumnDef<branch>[] = [
                     <EditBranch branch={row.original} />
                     <Button
                         onClick={() => {
-                        if (
-                                confirm("Are you sure you want to delete this branch?")
+                            if (
+                                confirm(
+                                    "Are you sure you want to delete this branch?"
+                                )
                             ) {
-                        }
-                            router.delete(
-                                route("branches.destroy", row.original.id),
-                                {
-                                    onSuccess: () => {
-                                        toast.success(
-                                            "Branch deleted successfully"
-                                        );
-                                    },
-                                    onError: (errors) => {
-                                        toast.error(
-                                            "Unexpected error occurred, pleease try again later!"
-                                        );
-                                    },
-                                }
-                            )
+                                router.delete(
+                                    route("branches.destroy", row.original.id),
+                                    {
+                                        onSuccess: () => {
+                                            toast.success(
+                                                "Branch deleted successfully"
+                                            );
+                                        },
+                                        onError: (errors) => {
+                                            toast.error(
+                                                "Unexpected error occurred, pleease try again later!"
+                                            );
+                                        },
+                                    }
+                                );
+                            }
                         }}
                         variant={"destructive"}
                         size={"icon"}
