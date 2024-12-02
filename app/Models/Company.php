@@ -22,4 +22,9 @@ class Company extends Model
     {
         return $this->hasMany(Branch::class);
     }
+
+    public function productCompanies(): HasMany
+    {
+        return $this->hasMany(ProductCompany::class);
+    }
 }

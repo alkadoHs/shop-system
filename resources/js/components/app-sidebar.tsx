@@ -28,6 +28,7 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar";
 import { usePage } from "@inertiajs/react";
+import { title } from "process";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const user = usePage().props.auth.user;
@@ -80,6 +81,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {
                         title: "Branches",
                         url: route("branches.index"),
+                    },
+                    {
+                        title: "Product Companies",
+                        url: route("product-companies.index"),
                     }
                 ],
             },

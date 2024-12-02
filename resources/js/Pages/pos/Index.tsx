@@ -9,16 +9,19 @@ import OrderDetails from "./actions/OrderDetails";
 import { numberFormat } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import { Spinner } from "@/components/ui/spinner";
+import { ProductCompany } from "../product-companies/columns";
 
 const Pos = ({
     products,
     cartItems,
     paymentMethods,
+    productCompanies,
     total,
 }: {
     products: Product[];
     cartItems: cartItem[];
     paymentMethods: Payment[];
+    productCompanies: ProductCompany[];
     total: number;
 }) => {
     const searchProduct = useDebouncedCallback(

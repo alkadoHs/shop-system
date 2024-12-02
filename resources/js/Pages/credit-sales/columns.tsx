@@ -54,6 +54,9 @@ export interface OrderItem {
     total: number;
     profit: number;
     total_buy_price: number;
+    company: string;
+    imei: string;
+    imei2: string;
     created_at: string;
 }
 

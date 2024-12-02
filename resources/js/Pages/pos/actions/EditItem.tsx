@@ -1,11 +1,13 @@
 import React, { FormEventHandler } from "react";
 import { cartItem } from "../columns";
 import { Input } from "@/components/ui/input";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { toast } from "sonner";
 import BarcodeModal from "./BarcodeModal";
 import InputError from "@/Components/InputError";
 import { LoadingButton } from "@/components/ui/loanding-button";
+import { ComboBox, ComboboxContent, ComboboxInput, ComboboxItem } from "@/components/Combobox";
+import { ProductCompany } from "@/Pages/product-companies/columns";
 
 const EditItem = ({ item }: { item: cartItem }) => {
     const [imei, setImei] = React.useState("");
@@ -19,6 +21,8 @@ const EditItem = ({ item }: { item: cartItem }) => {
         imei: item.imei ?? imei,
         imei2: item.imei2,
     });
+
+    const companies: ProductCompany[] = usePage().props.productCompanies as ProductCompany[]
 
     const save: FormEventHandler = (e) => {
         e.preventDefault();
@@ -44,13 +48,15 @@ const EditItem = ({ item }: { item: cartItem }) => {
             />
             <InputError message={errors.qty} />
 
-            <Input
-                type="text"
-                name="company"
-                value={data.company}
-                onChange={(e) => setData("company", e.target.value)}
-                placeholder="Company name"
-            />
+            <ComboBox value={data.company} onValueChange={(value) => setData("company", value as string)}>
+                <ComboboxInput placeholder="Select company" />
+
+                <ComboboxContent>
+                    {companies?.map(company => (
+                        <ComboboxItem value={company.name} key={company.id} label={company.name}>{company.name}</ComboboxItem>
+                    ))}
+                </ComboboxContent>
+            </ComboBox>
             <InputError message={errors.company} />
 
             <div className="flex items-center gap-2">

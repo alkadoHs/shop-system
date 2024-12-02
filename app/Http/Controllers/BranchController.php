@@ -66,7 +66,11 @@ class BranchController extends Controller
      */
     public function update(UpdateBranchRequest $request, Branch $branch)
     {
-        //
+        $validated = $request->validated();
+
+        $branch->update($validated);
+
+        return back();
     }
 
     /**
@@ -74,7 +78,13 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
-        //
+        try {
+            $branch->delete();
+        } catch (\Throwable $th) {
+            return back()->withErrors(['message' => 'Cannot delete branch because it has users or products']);
+        }
+
+        return back();
     }
 
     public function switchBranch(Branch $branch)

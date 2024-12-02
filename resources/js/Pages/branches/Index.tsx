@@ -3,7 +3,6 @@ import { H3 } from "@/components/ui/heading-with-anchor";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { branch } from "@/types";
 import { Deferred, Head } from "@inertiajs/react";
-import React from "react";
 import { branchColumns } from "./columns";
 import { CreateBranch } from "./actions/create-branch";
 import { Spinner } from "@/components/ui/spinner";

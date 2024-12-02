@@ -59,6 +59,9 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
     {
         accessorKey: "qty",
         header: "Qty sold",
+        cell: ({ row }) => {
+            return <span>{numberFormat(row.original.qty)}</span>;
+        }
     },
     {
         accessorKey: "price",

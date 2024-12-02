@@ -12,6 +12,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PosController;
+use App\Http\Controllers\ProductCompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSalesController;
 use App\Http\Controllers\ProfileController;
@@ -46,7 +47,7 @@ Route::resource('/setup/branches', BranchController::class)
     ->only(['index', 'create', 'show', 'store', 'update', 'destroy']);
 
 Route::resource('/setup/users', \App\Http\Controllers\UserController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('setup')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('payments', PaymentMethodController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('product-companies', ProductCompanyController::class)->only(['index', 'store', 'destroy']);
 });
 
 Route::resource('products', ProductController::class)

@@ -124,7 +124,6 @@ export const cartItemColumns: ColumnDef<cartItem>[] = [
                                     },
                                 });
                         }}
-                        className="text-red-600 hover:underline"
                     >
                         <Trash2 />
                     </Button>

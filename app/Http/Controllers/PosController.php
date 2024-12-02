@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\PaymentMethod;
 use App\Models\Product;
+use App\Models\ProductCompany;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -24,7 +25,8 @@ class PosController extends Controller
             "products" => fn () => Product::where('name', 'LIKE', "%{$search}%")->limit(10)->get(),
             "cartItems" => $cartItems,
             "paymentMethods" => fn () => PaymentMethod::get(),
-            "total" => auth()->user()->cartItems()->get()->reduce(fn ($total, CartItem $item) => $total + ($item->qty * $item->price), 0),
+            "productCompanies" => fn () => ProductCompany::where('company_id', auth()->user()->company_id)->get(),
+            "total" => auth()->user()->cartItems()->get()->reduce(fn ($total, CartItem $item) => $total + $item->qty * $item->price, 0),
         ]);
     }
 

@@ -23,6 +23,8 @@ export interface User {
     email: string;
     avatar: string;
     role: string;
+    phone: string;
+    isActive: boolean;
     branch_id: number;
     company_id: number;
     branch: branch;

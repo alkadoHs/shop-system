@@ -33,6 +33,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (!auth()->user()->isActive) {
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect('/login')->with('status', 'Your account is blocked. Please contact the administrator.');
+        }
+
         if (auth()->user()->role !== 'admin') {
             return redirect()->intended(route('seller-dashboard', absolute: false));
         } 

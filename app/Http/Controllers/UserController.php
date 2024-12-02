@@ -35,4 +35,40 @@ class UserController extends Controller
 
         return back();
     }
+
+
+    public function update(Request $request, User $user): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => "required|email|unique:users,email,{$user->id}",
+            'role' => 'required',
+            'branch_id' => 'required|exists:branches,id', // Ensure branch_id exists in the branches table
+            'phone' => 'required|string|max:255',
+        ]);
+
+        $user->update($validated);
+
+        return back();
+    }
+
+    public function destroy(User $user): RedirectResponse
+    {
+        if ($user->isActive)
+            $user->update(['isActive' => false]);
+        else
+            $user->update(['isActive' => true]);
+
+        return back();
+    }
+
+
+    public function changePassword(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'password' => $request->password,
+        ]);
+
+        return redirect()->intended(route('dashboard', absolute: false));
+    }
 }
