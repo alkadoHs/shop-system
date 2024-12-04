@@ -37,6 +37,11 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => User::with(['branch', 'company'])->find(Auth::id()),
                 'branches' => auth()->user()?->role == 'admin' ? auth()->user()?->company?->branches()?->get(): [],
+                'sessions' => [
+                    'error' => session('error'),
+                    'success' => session('success'),
+                    'message' => session('message'),
+                ],
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

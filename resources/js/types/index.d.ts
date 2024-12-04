@@ -38,6 +38,11 @@ export type PageProps<
     auth: {
         user: User;
         branches: branch[];
+        sessions: {
+            error: string;
+            success: string;
+            message: string;
+        }
     };
     ziggy: Config & { location: string };
 };

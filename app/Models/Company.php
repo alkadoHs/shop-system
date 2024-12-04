@@ -27,4 +27,14 @@ class Company extends Model
     {
         return $this->hasMany(ProductCompany::class);
     }
+
+    public function suppliers(): HasMany
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
+    public function purchaseOrders(): HasMany
+    {
+        return $this->hasMany(PurchaseOrder::class);
+    }
 }

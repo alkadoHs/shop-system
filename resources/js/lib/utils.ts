@@ -40,4 +40,9 @@ export function dateFormatFilter(date: string) {
   return dayjs(date).format("DD-MM-YYYY");
 }
 
+export function today(): string
+{
+  return dayjs().format("DD-MM-YYYY");
+}
+
 

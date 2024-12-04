@@ -10,12 +10,18 @@ import {
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { AlignJustifyIcon, Building2 } from "lucide-react";
+import { toast } from "sonner";
 
 export default function Authenticated({
     header,
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
     const user = usePage().props.auth.user;
+
+    const sessions = usePage().props.auth.sessions;
+
+    if (sessions.message) toast.info(sessions.message);
+    if (sessions.error) toast.error(sessions.error);
 
     return (
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
@@ -26,7 +32,12 @@ export default function Authenticated({
                         <div className="flex items-center justify-end  w-full gap-2 px-4 ">
                             <div className="flex items-center gap-2 mr-auto">
                                 <SidebarTrigger />
-                                <img className="h-10 w-fit rounded-full" loading={'lazy'} src={'/images/logo_text.png'} alt="logo 2" />
+                                <img
+                                    className="h-10 w-fit rounded-full"
+                                    loading={"lazy"}
+                                    src={"/images/logo_text.png"}
+                                    alt="logo 2"
+                                />
                             </div>
                             <Separator
                                 orientation="vertical"

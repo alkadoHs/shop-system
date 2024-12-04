@@ -11,6 +11,7 @@ import {
     HandCoins,
     ListTodo,
     Map,
+    Package,
     PieChart,
     Settings2,
     SquareTerminal,
@@ -29,6 +30,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePage } from "@inertiajs/react";
 import { title } from "process";
+import { url } from "inspector";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const user = usePage().props.auth.user;
@@ -85,6 +87,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {
                         title: "Product Companies",
                         url: route("product-companies.index"),
+                    },
+                    {
+                        title: "Suppliers",
+                        url: route('suppliers.index')
                     }
                 ],
             },
@@ -185,11 +191,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 url: route("credit-sales.index"),
                 icon: HandCoins,
             },
+            // {
+            //     name: "Pending orders",
+            //     url: route("pending-orders.index"),
+            //     icon: ListTodo,
+            // },
             {
-                name: "Pending orders",
-                url: route("pending-orders.index"),
-                icon: ListTodo,
-            },
+                name: "Purchase orders",
+                url: route("purchases.index"),
+                icon: Package
+            }
         ],
     };
 

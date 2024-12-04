@@ -181,6 +181,7 @@ const Products = ({ products }: { products: Product[] }) => {
                     </Deferred>
                 </div>
             </Card>
+
         </Authenticated>
     );
 };

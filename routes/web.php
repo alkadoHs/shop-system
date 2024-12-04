@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductCompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSalesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\Reports\ExpensesReportController;
 use App\Http\Controllers\Reports\LowStockAlertsController;
 use App\Http\Controllers\ReportsController;
@@ -49,6 +50,14 @@ Route::resource('/setup/branches', BranchController::class)
 Route::resource('/setup/users', \App\Http\Controllers\UserController::class)
     ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
+
+Route::resource('/setup/suppliers', \App\Http\Controllers\SupplierController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('purchases', PurchaseOrderController::class)
+    ->middleware(['auth', 'verified'])
+    ->only(['index', 'show', 'edit', 'create', 'store', 'update', 'destroy']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
