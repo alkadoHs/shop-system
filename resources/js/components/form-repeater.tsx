@@ -58,7 +58,7 @@ export default function FormRepeater<T>({
     return (
         <div ref={parent}>
             {items.map((item, index) => (
-                <div key={index}>
+                <div key={index}>  
                     {renderFields(item, index, handleChange)}
                     <button
                         type="button"
