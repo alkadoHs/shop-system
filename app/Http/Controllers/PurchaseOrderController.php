@@ -17,20 +17,22 @@ class PurchaseOrderController extends Controller
     public function index(): Response
     {
         return Inertia::render("purchase-order/Index",
-    [
-        "purchaseOrders" => Inertia::defer(fn () => PurchaseOrder::with(['supplier', 'paymentMethod', 'branch'])
-                                     ->withSum('purchaseOrderItems', 'total')
-                                     ->withSum('purchaseOrderItems','qty')
-                                     ->orderBy('created_at', 'desc')
-                                     ->get())
-    ]);
+            [
+                "purchaseOrders" => Inertia::defer(fn () => PurchaseOrder::with(['supplier', 'paymentMethod', 'branch'])
+                                            ->withSum('purchaseOrderItems', 'total')
+                                            ->withSum('purchaseOrderItems','qty')
+                                            ->orderBy('created_at', 'desc')
+                                            ->limit(50)
+                                            ->get())
+            ]);
     }
 
-    public function show(PurchaseOrder $purchaseOrder): Response
+    public function show(PurchaseOrder $purchase): Response
     {
         return Inertia::render('purchase-order/Show', [
-            'purchaseOrder' => $purchaseOrder->load(['supplier', 'paymentMethod', 'branch', 'purchaseOrderItems.product'])
-        ]);
+            'purchaseOrder' => PurchaseOrder::with(['supplier', 'paymentMethod', 'branch', 'purchaseOrderItems.product'])->find($purchase->id),
+            'total' => fn () => PurchaseOrder::withSum('purchaseOrderItems', 'total')->find($purchase->id)->purchase_order_items_sum_total,
+        ]);    
     }
 
 
@@ -38,7 +40,7 @@ class PurchaseOrderController extends Controller
     {
         return Inertia::render('purchase-order/Create', [
             'suppliers' => fn () => Supplier::get(),
-            'paymentMethods' => fn () => PaymentMethod::get(),
+            'paymentMethods' => fn () => PaymentMethod::withSum('orderItems', 'total')->get(),
             'products' => fn () => Product::get(),
             'branches' => fn () => Branch::get(),
             'today' => fn () => today()->format('Y-m-d'),
@@ -69,6 +71,15 @@ class PurchaseOrderController extends Controller
                 'date' => $request->date,
                 'company_id' => auth()->user()->company_id,
             ]);
+
+            foreach ($request->items as $item) {
+                $product = Product::find($item['product_id']);
+                $product->update([
+                    'buy_price' => $item['buy_price'],
+                    'sale_price' => $item['sale_price'],
+                ]);
+                $product->increment('stock', $item['qty']);
+            }
     
             $purchaseOrder->purchaseOrderItems()->createMany($request->items);
         }, 5);

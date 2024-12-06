@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { LoadingButton } from "@/components/ui/loanding-button";
 import { set } from "date-fns";
 import { toast } from "sonner";
+import { H3, H4 } from "@/components/ui/heading-with-anchor";
+import { numberFormat } from "@/lib/utils";
 
 interface Item {
     product_id?: number;
@@ -354,16 +356,31 @@ const Create = ({
                         </CardContent>
                     </Card>
 
-                    <Card>
-                        <CardContent className="flex justify-center gap-2 pt-4">
-                            <Button variant={"outline"} asChild>
-                                <Link href={route("purchases.index")}>
-                                    Cancel
-                                </Link>
-                            </Button>
-                            <LoadingButton type="submit" loading={processing}>
-                                {processing ? "Saving..." : "Create purchase"}
-                            </LoadingButton>
+                    <Card className="-mx-4 md:-mx-0">
+                        <CardContent className="flex justify-between items-center gap-2 pt-4">
+                            <H4>
+                                Total:{" "}
+                                {numberFormat(items.reduce(
+                                    (acc, item) =>
+                                        acc + item.buy_price * item.qty,
+                                    0
+                                ))}
+                            </H4>
+                            <div className="flex items-center gap-2">
+                                <Button variant={"outline"} asChild>
+                                    <Link href={route("purchases.index")}>
+                                        Cancel
+                                    </Link>
+                                </Button>
+                                <LoadingButton
+                                    type="submit"
+                                    loading={processing}
+                                >
+                                    {processing
+                                        ? "Saving..."
+                                        : "Create"}
+                                </LoadingButton>
+                            </div>
                         </CardContent>
                     </Card>
                 </form>

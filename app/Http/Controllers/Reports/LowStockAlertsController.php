@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Reports;
 use App\Exports\LowStockAlertExport;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
 class LowStockAlertsController extends Controller

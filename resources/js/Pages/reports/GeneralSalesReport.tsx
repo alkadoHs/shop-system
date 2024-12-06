@@ -8,14 +8,17 @@ import { TableCell } from "@/components/ui/table";
 import ProductSalesFilter from "./filters/ProductSalesFilter";
 import { ProductSalesExport } from "./exports/ProductSalesExport";
 import ReportDateFilter from "@/components/filters/reports-date-filter";
+import { transactionsColumns } from "../dash-columns";
+import { OrderItem } from "../credit-sales/columns";
+import TimeRangeFilter from "@/components/time-range-filter";
 
-const SalesByProductPage = ({
-    salesByProduct,
+const GeneralSalesReport = ({
+    generalSales,
     reportType,
     startDate,
     endDate,
 }: {
-    salesByProduct: SalesByProduct[];
+    generalSales: OrderItem[];
     reportType: string;
     startDate: string;
     endDate: string;
@@ -26,7 +29,7 @@ const SalesByProductPage = ({
 
             <section className="p-4">
                 <div className="pb-3">
-                    <H3>Sales by Product</H3>
+                    <H3>General Sales Report</H3>
                 </div>
 
                 <div>
@@ -41,50 +44,22 @@ const SalesByProductPage = ({
                 </div>
 
                 <div className="my-3 flex items-center justify-between gap-4">
-                    <ProductSalesFilter type={reportType} />
+                    <TimeRangeFilter url="reports.general-sales" type={reportType} />
 
                     <div className="flex gap-2.5 items-center">
                         <ReportDateFilter
-                            url={route("reports.sales-by-product")}
+                            url={route("reports.general-sales")}
                         />
                         <ProductSalesExport exportType={reportType} />
                     </div>
                 </div>
 
                 <DataTable
-                    columns={productSalesColumns}
-                    data={salesByProduct}
+                    columns={transactionsColumns}
+                    data={generalSales}
                     footer={
                         <>
-                            <TableCell className="left">Total:</TableCell>
-                            <TableCell className="left">
-                                {numberFormat(
-                                    salesByProduct.reduce(
-                                        (acc, item) =>
-                                            acc + Number(item.quantity_sold),
-                                        0
-                                    )
-                                )}
-                            </TableCell>
-                            <TableCell className="left">
-                                {numberFormat(
-                                    salesByProduct.reduce(
-                                        (acc, item) =>
-                                            acc + Number(item.total_revenue),
-                                        0
-                                    )
-                                )}
-                            </TableCell>
-                            <TableCell className="left">
-                                {numberFormat(
-                                    salesByProduct.reduce(
-                                        (acc, item) =>
-                                            acc +
-                                            Number(item.transaction_count),
-                                        0
-                                    )
-                                )}
-                            </TableCell>
+                            
                         </>
                     }
                 />
@@ -93,4 +68,4 @@ const SalesByProductPage = ({
     );
 };
 
-export default SalesByProductPage;
+export default GeneralSalesReport;

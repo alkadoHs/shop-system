@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $company = Company::create([
-            'name' => 'Test Company',
-            'email' => 'test@example.com',
+            'name' => 'MAUZODATA SALES INNOVATION',
+            'email' => 'admin@mauzodata.com',
             'phone' => '07123456789',
             'address' => '123 Main St',
         ]);
@@ -30,11 +30,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Test User',
-            'email' => 'test@mauzodata.com',
+            'name' => 'alkado',
+            'email' => 'admin@mauzodata.com',
             'phone' => '07123456789',
             'email_verified_at' => now(),
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'password' => \Illuminate\Support\Facades\Hash::make('admin123'),
             'remember_token' => \Illuminate\Support\Str::random(10),
             'company_id' => $company->id,
             'branch_id' => $branch->id,

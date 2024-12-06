@@ -50,7 +50,7 @@ export default function CreateUser({ branches }: { branches: branch[] }) {
                         <DialogTitle>Create User</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={onsubmit}>
-                        <div className="grid grid-cols-6 gap-4">
+                        <div className="grid grid-cols-6 gap-4 mb-6">
                             <div className="col-span-6 md:col-span-3 grid w-full max-w-sm items-center gap-1.5">
                                 <Label htmlFor="name">Name</Label>
                                 <Input
@@ -113,12 +113,12 @@ export default function CreateUser({ branches }: { branches: branch[] }) {
                                         >
                                             SELLER
                                         </SelectItem>
-                                        {/* <SelectItem
-                                            key={"vendor"}
-                                            value={"vendor"}
+                                        <SelectItem
+                                            key={"manager"}
+                                            value={"manager"}
                                         >
-                                            VENDOR
-                                        </SelectItem> */}
+                                            MANAGER
+                                        </SelectItem>
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.role} />

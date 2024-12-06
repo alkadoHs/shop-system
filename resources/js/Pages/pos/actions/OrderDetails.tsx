@@ -15,7 +15,13 @@ import InputError from "@/Components/InputError";
 import { FormEventHandler } from "react";
 import { toast } from "sonner";
 
-const OrderDetails = ({ payments, total }: { payments: Payment[], total: number }) => {
+const OrderDetails = ({
+    payments,
+    total,
+}: {
+    payments: Payment[];
+    total: number;
+}) => {
     const { data, setData, post, errors, processing, reset } = useForm({
         status: "paid",
         payment_method_id: "",
@@ -29,7 +35,7 @@ const OrderDetails = ({ payments, total }: { payments: Payment[], total: number 
 
         post(route("orders.store"), {
             onSuccess: () => {
-                reset()
+                reset();
                 toast.success("Processed successfully!");
             },
             onError: () => {
@@ -56,9 +62,6 @@ const OrderDetails = ({ payments, total }: { payments: Payment[], total: number 
                             <SelectContent>
                                 <SelectItem key={"paid"} value={"paid"}>
                                     Paid
-                                </SelectItem>
-                                <SelectItem key={"pending"} value={"pending"}>
-                                    Pending order
                                 </SelectItem>
                                 <SelectItem key={"credit"} value={"credit"}>
                                     Credit sale
@@ -113,9 +116,7 @@ const OrderDetails = ({ payments, total }: { payments: Payment[], total: number 
                             type="text"
                             id="contact"
                             value={data.contact}
-                            onChange={(e) =>
-                                setData("contact", e.target.value)
-                            }
+                            onChange={(e) => setData("contact", e.target.value)}
                             placeholder=""
                             required
                         />
@@ -136,7 +137,11 @@ const OrderDetails = ({ payments, total }: { payments: Payment[], total: number 
                         <InputError message={errors.location} />
                     </div>
                     <div className="flex gap-2">
-                        <LoadingButton type="submit" loading={processing} disabled={total <= 0}>
+                        <LoadingButton
+                            type="submit"
+                            loading={processing}
+                            disabled={total <= 0}
+                        >
                             {processing ? "Processing..." : "Complete"}
                         </LoadingButton>
                         <LoadingButton type="button" variant={"outline"}>

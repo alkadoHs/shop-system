@@ -11,7 +11,6 @@ import { OrderItem } from "./credit-sales/columns";
 
 interface Props {
     totalPaidSales: number;
-    totalPendingSales: number;
     totalCreditSales: number;
     totalExpenses: number;
     totalCreditSalePayments: number;
@@ -23,7 +22,6 @@ export default function SellerDashboard({
     totalCreditSales,
     totalExpenses,
     totalPaidSales,
-    totalPendingSales,
     totalStockMovements,
     transactions,
 }: Props) {
@@ -47,14 +45,6 @@ export default function SellerDashboard({
                         <StatsCard
                             label="Expenses"
                             content={numberFormat(Math.round(totalExpenses))}
-                        />
-                    </Deferred>
-                    <Deferred data="totalPendingSales" fallback={<Spinner />}>
-                        <StatsCard
-                            label="Pending Sales"
-                            content={numberFormat(
-                                Math.round(totalPendingSales)
-                            )}
                         />
                     </Deferred>
                     <Deferred data="totalCreditSales" fallback={<Spinner />}>

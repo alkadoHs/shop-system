@@ -101,6 +101,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 isVisible: user.role === "admin",
                 items: [
                     {
+                        title: "General sales",
+                        url: route("reports.general-sales"),
+                    },
+                    {
                         title: "Daily sales",
                         url: route("reports.sales"),
                     },

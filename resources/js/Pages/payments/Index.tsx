@@ -17,6 +17,9 @@ export interface Payment {
     id: number;
     name: string;
     number: string;
+    purchase_order_items_sum_total: number;
+    order_items_sum_total: number;
+    expense_items_sum_cost: number;
 }
 
 const Payments = ({ payments }: { payments: Payment[] }) => {

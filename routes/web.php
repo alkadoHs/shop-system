@@ -24,6 +24,7 @@ use App\Http\Controllers\SellerDashboard;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Middleware\RemoveCommaFromInput;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Reports\GeneralSalesReportController;
 
 Route::get('/', function () {
     return to_route('login');
@@ -182,6 +183,12 @@ Route::controller(ExpensesReportController::class)->middleware(['auth', 'verifie
     Route::get('reports/expenses/export/pdf', 'exportPdf')->name('reports.expenses.export.pdf');
 });
 
+// general sales report
+Route::controller(GeneralSalesReportController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('reports/general-sales', 'report')->name('reports.general-sales');
+    Route::get('reports/general-sales/export/excel', 'exportExcel')->name('reports.general-sales.export.excel');
+    Route::get('reports/general-sales/export/pdf', 'exportPdf')->name('reports.general-sales.export.pdf');
+});
 
 
 // json responses routes

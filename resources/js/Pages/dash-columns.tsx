@@ -4,7 +4,7 @@ import { dateTimeFormat, numberFormat, timeFormat } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SquareXIcon, Trash2 } from "lucide-react";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { toast } from "sonner";
 
 export const transactionsColumns: ColumnDef<OrderItem>[] = [
@@ -55,7 +55,20 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
             );
         },
     },
-
+    {
+        accessorKey: 'imei',
+        header: 'IMEI',
+        cell: ({ row }) => {
+            return (<div>
+                <p>IMEI1:  <span className="text-primary">{row.original.imei ?? '__'}</span></p>
+                <p>IMEI2: <span className="text-primary">{row.original.imei2 ?? '__'}</span></p>
+            </div>)
+        }
+    },
+    {
+        accessorKey: 'company',
+        header: 'Company',
+    },
     {
         accessorKey: "qty",
         header: "Qty sold",
@@ -69,6 +82,13 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
         cell: ({ row }) => {
             return <span>{numberFormat(row.original.price)}</span>;
         },
+    },
+    {
+        accessorKey: "discount",
+        header: "Discount",
+        cell: ({ row }) => {
+            return <span>{numberFormat(row.original.discount)}</span>;
+        }
     },
     {
         accessorKey: "total",
@@ -88,8 +108,10 @@ export const transactionsColumns: ColumnDef<OrderItem>[] = [
         accessorKey: "action",
         header: "Action",
         cell: ({ row }) => {
+            const user = usePage().props.auth.user
             return (
                 <Button
+                    disabled={user.role !== 'admin'}
                     onClick={() => {
                         if (
                             confirm(

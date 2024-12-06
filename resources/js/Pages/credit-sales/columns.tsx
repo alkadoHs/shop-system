@@ -57,6 +57,7 @@ export interface OrderItem {
     company: string;
     imei: string;
     imei2: string;
+    discount: number;
     created_at: string;
 }
 
