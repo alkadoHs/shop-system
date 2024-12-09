@@ -13,7 +13,7 @@ class SellerDashboard extends Controller
         return Inertia::render("SellerDashboard", [
             'totalPaidSales' => Inertia::defer(fn () => auth()->user()->orderItems()->whereRelation('order', 'status', 'paid')->whereDate('order_items.created_at', now())->sum('total')),
             'totalPendingSales' => Inertia::defer(fn () => auth()->user()->orderItems()->whereRelation('order', 'status', 'pending')->whereDate('order_items.created_at', now())->sum('total')),
-            'totalCreditSales' => Inertia::defer(fn () => auth()->user()->orderItems()->whereRelation('order', 'status', 'credit')->sum('total')),
+            'totalCreditSales' => Inertia::defer(fn () => auth()->user()->orderItems()->whereRelation('order', 'status', 'credit')->sum('total') - auth()->user()->creditSalePayments()->whereRelation('order', 'status', 'credit')->sum('amount')),
             'totalCreditSalePayments' => Inertia::defer(fn () => auth()->user()->creditSalePayments()->whereDate('created_at', now())->sum('amount')),
             'totalExpenses' => Inertia::defer(fn () => auth()->user()->expenseItems()->whereDate('expense_items.created_at', now())->sum('cost')),
             'totalStockMovements' => Inertia::defer(fn () => auth()->user()->stockMovements()->whereDate('created_at', now())->sum('stock')),

@@ -12,14 +12,13 @@ import { Head } from "@inertiajs/react";
 import { CreatePayment } from "./actions/create-payment";
 import DeletePayment from "./actions/delete-payment";
 import { Card } from "@/components/ui/card";
+import { numberFormat } from "@/lib/utils";
 
 export interface Payment {
     id: number;
     name: string;
     number: string;
-    purchase_order_items_sum_total: number;
-    order_items_sum_total: number;
-    expense_items_sum_cost: number;
+    accounts_sum_amount: number;
 }
 
 const Payments = ({ payments }: { payments: Payment[] }) => {
@@ -42,6 +41,7 @@ const Payments = ({ payments }: { payments: Payment[] }) => {
                                 <TableHead>S/N</TableHead>
                                 <TableHead>NAME</TableHead>
                                 <TableHead>NUMBER</TableHead>
+                                <TableHead>BALANCE</TableHead>
                                 <TableHead>ACTION</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -50,7 +50,8 @@ const Payments = ({ payments }: { payments: Payment[] }) => {
                                 <TableRow key={payment.id}>
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{payment.name}</TableCell>
-                                    <TableCell>{payment.number ? payment.number: '00-000'}</TableCell>
+                                    <TableCell>{payment.number ?? '00-000'}</TableCell>
+                                    <TableCell>{numberFormat(payment.accounts_sum_amount)}</TableCell>
                                     <TableCell>
                                         <DeletePayment payment={payment} />
                                     </TableCell>

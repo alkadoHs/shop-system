@@ -30,12 +30,10 @@ export default function Page({
     totalProducts,
     sales,
     creditSales,
-    pendingSales,
     profit,
     creditSalesProfit,
     expenses,
     lowStockProducts,
-    expiredProducts,
     zeroStockProducts,
     topSellingProducts,
     salesData,
@@ -47,12 +45,10 @@ export default function Page({
     totalProducts: number;
     sales: number;
     creditSales: number;
-    pendingSales: number;
     profit: number;
     creditSalesProfit: number;
     expenses: number;
     lowStockProducts: number;
-    expiredProducts: number;
     zeroStockProducts: number;
     topSellingProducts: number;
     salesData: number[];
@@ -68,7 +64,7 @@ export default function Page({
                 </div>
                 <div className="flex flex-1 flex-col gap-4 p-4  pt-0">
                     <div className="space-y-6">
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                             <Deferred data="capital" fallback={<Spinner />}>
                                 <StatsCard
                                     label="Capital"
@@ -88,15 +84,6 @@ export default function Page({
                                 <StatsCard
                                     label="Credit Sales"
                                     content={numberFormat(creditSales)}
-                                />
-                            </Deferred>
-                            <Deferred
-                                data="pendingSales"
-                                fallback={<Spinner />}
-                            >
-                                <StatsCard
-                                    label="Pending Sales"
-                                    content={numberFormat(pendingSales)}
                                 />
                             </Deferred>
                         </div>
@@ -157,7 +144,7 @@ export default function Page({
                             </div>
                         </div>
                         <div className="max-w-[85rem]">
-                            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                                 <Deferred
                                     data="lowStockProducts"
                                     fallback={<Spinner />}
@@ -183,20 +170,6 @@ export default function Page({
                                         growthRatePositive={true}
                                         icon={<ChartNoAxesCombined />}
                                         link={route("reports.sales-by-product")}
-                                        linkText="View reports"
-                                    />
-                                </Deferred>
-                                <Deferred
-                                    data="expiredProducts"
-                                    fallback={<Spinner />}
-                                >
-                                    <StockCard
-                                        title="Expired Products"
-                                        value={numberFormat(expiredProducts)}
-                                        growthRate=""
-                                        growthRatePositive={false}
-                                        icon={<ShieldOff />}
-                                        link="#"
                                         linkText="View reports"
                                     />
                                 </Deferred>

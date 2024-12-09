@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\CartItem;
 use App\Models\Customer;
 use App\Models\Order;
@@ -52,7 +53,7 @@ class OrderController extends Controller
            ]);
    
            // create order items
-           $order->orderItems()->createMany(auth()->user()->cartItems()
+           $orderItems = $order->orderItems()->createMany(auth()->user()->cartItems()
                 ->get()
                 ->map(function (CartItem $item) use( $validated) {
                 $item->product->decrement('stock', $item->qty);
@@ -69,6 +70,23 @@ class OrderController extends Controller
                     'discount' => $item->discount,
                 ];
             }));
+
+        // get the account if not exists create it
+        $account = Account::firstOrCreate([
+            'branch_id' => auth()->user()->branch_id,
+            'payment_method_id' => $validated['payment_method_id'],
+        ]);
+
+        if($validated['status'] == 'paid') {
+            $account->increment('amount', $order->orderItems()->sum('total'));
+
+            $account->accountTransactions()->create([
+                'amount' => $order->orderItems()->sum('total'),
+                'type' => 'deposit',
+                'description' => "Order #{$order->id}",
+                'user_id' => auth()->user()->id,
+            ]);
+        }
 
            // clear cart
          auth()->user()->cart()->delete();

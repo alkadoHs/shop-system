@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Branch;
 use App\Models\PaymentMethod;
 use App\Models\Product;
@@ -51,7 +52,7 @@ class PurchaseOrderController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         // dd($request->all());
-        $request->validate([
+        $validated = $request->validate([
             'supplier_id' => 'required',
             'payment_method_id' => 'required',
             'branch_id' => 'required',
@@ -63,7 +64,7 @@ class PurchaseOrderController extends Controller
             'items.*.sale_price' => 'required|numeric',
         ]);
 
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request, $validated) {
             $purchaseOrder = PurchaseOrder::create([
                 'supplier_id' => $request->supplier_id,
                 'payment_method_id' => $request->payment_method_id,
@@ -82,6 +83,21 @@ class PurchaseOrderController extends Controller
             }
     
             $purchaseOrder->purchaseOrderItems()->createMany($request->items);
+
+            // get the account if not exists create it
+        $account = Account::firstOrCreate([
+            'branch_id' => $validated['branch_id'],
+            'payment_method_id' => $validated['payment_method_id'],
+        ]);
+
+        $account->decrement('amount', $purchaseOrder->purchaseOrderItems()->sum('total'));
+
+        $account->accountTransactions()->create([
+            'amount' => $purchaseOrder->purchaseOrderItems()->sum('total'),
+            'type' => 'withdraw',
+            'description' => "PurchaseOrder #{$purchaseOrder->id}",
+            'user_id' => auth()->user()->id,
+        ]);
         }, 5);
 
         return to_route('purchases.index');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CreditSalepayment;
 use App\Models\ExpenseItem;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -81,17 +82,7 @@ class DashboardController extends Controller
             }),
             'creditSales'=> Inertia::defer(function () use ($startDate, $endDate) {
                 return OrderItem::whereRelation('order', 'status', 'credit')
-                    ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                        return $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-                    })
-                    ->sum('total');
-            }),
-            'pendingSales' => Inertia::defer(function () use ($startDate, $endDate) {
-                return OrderItem::whereRelation('order', 'status', 'pending')
-                    ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                        return $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-                    })
-                    ->sum('total_p_qty');
+                    ->sum('total') - CreditSalepayment::whereRelation('order', 'status', 'credit')->sum('amount');
             }),
             'profit' => Inertia::defer(function () use ($startDate, $endDate) {
                 return OrderItem::whereRelation('order', 'status', 'paid')
@@ -102,9 +93,6 @@ class DashboardController extends Controller
             }),
             'creditSalesProfit' => Inertia::defer(function () use ($startDate, $endDate) {
                 return OrderItem::whereRelation('order', 'status', 'credit')
-                    ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                        return $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-                    })
                     ->sum('profit');
             }),
             'expenses' => Inertia::defer(function () use ($startDate, $endDate) {

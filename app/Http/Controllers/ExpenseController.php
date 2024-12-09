@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
+use App\Models\Account;
 use App\Models\Expense;
 use App\Models\ExpenseItem;
 use App\Models\PaymentMethod;
@@ -62,6 +63,21 @@ class ExpenseController extends Controller
                 'cost' => $validated['cost'],
             ]);
         }
+
+        // get the account if not exists create it
+        $account = Account::firstOrCreate([
+            'branch_id' => auth()->user()->branch_id,
+            'payment_method_id' => $validated['payment_method_id'],
+        ]);
+
+        $account->decrement('amount', $validated['cost']);
+
+        $account->accountTransactions()->create([
+            'amount' => $validated['cost'],
+            'type' => 'withdraw',
+            'description' => "Expense #{$validated['item']}",
+            'user_id' => auth()->user()->id,
+        ]);
 
         return back();
     }

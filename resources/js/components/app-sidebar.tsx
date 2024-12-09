@@ -60,6 +60,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         title: "Seller Dasboard",
                         url: route("seller-dashboard"),
                     },
+                    {
+                        title: "Account balances",
+                        url: route("account-balances.index"),
+                    },
                 ],
             },
             {

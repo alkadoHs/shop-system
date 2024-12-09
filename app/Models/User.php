@@ -106,4 +106,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CreditSalepayment::class);
     }
+
+    public function accountTransactions(): HasMany
+    {
+        return $this->hasMany(AccountTransaction::class);
+    }
 }

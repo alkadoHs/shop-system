@@ -1,5 +1,6 @@
-import { numberFormat } from "@/lib/utils";
+import { dateTimeFormat, numberFormat } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
+import { Payment } from "../payments/Index";
 
 export interface SalesOverTime {
     id: number;
@@ -237,3 +238,72 @@ export const expenseReportolumns: ColumnDef<ExpenseReport>[] = [
         },
     },
 ];
+
+export interface Account {
+    id: number;
+    branch_id: number;
+    payment_method: Payment;
+    amount: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface branchAccount {
+    id: number;
+    name: string;
+    accounts: Account[];
+    accounts_sum_amount: number;
+}
+
+export const accountBalanceColumns: ColumnDef<branchAccount>[] = [
+    {
+        accessorKey: "name",
+        header: "Branch",
+    },
+    {
+        accessorKey: "accounts_sum_amount",
+        header: "Total Balance",
+        cell: ({ row }) => {
+            return <span>{numberFormat(row.original.accounts_sum_amount)}</span>;
+        },
+    },
+];
+
+export const accountColumns: ColumnDef<Account>[] = [
+    {
+        accessorKey: "payment_method",
+        header: "Account",
+        cell: ({ row }) => {
+            return <span>{row.original.payment_method.name}</span>;
+        }
+    },
+    {
+        accessorKey: "amount",
+        header: "Amount",
+        cell: ({ row }) => {
+            return <span>{numberFormat(row.original.amount)}</span>;
+        },
+    },
+    {
+        accessorKey: "updated_at",
+        header: "Last Transaction",
+        cell: ({ row }) => {
+            return <span>{dateTimeFormat(row.original.updated_at)}</span>;
+        }
+    },
+];
+
+
+export const allAccountsColumns: ColumnDef<Payment>[] = [
+    {
+        accessorKey: 'name',
+        header: 'Account',
+    },
+    {
+        accessorKey: 'accounts_sum_amount',
+        header: 'Total Balance',
+        cell: ({ row }) => {
+            return (<span>{numberFormat(row.original.accounts_sum_amount)}</span>)
+        }
+    }
+]

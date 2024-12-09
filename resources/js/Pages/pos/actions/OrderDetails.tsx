@@ -33,7 +33,7 @@ const OrderDetails = ({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route("orders.store"), {
+        post(route("orders.store", {total: total}), {
             onSuccess: () => {
                 reset();
                 toast.success("Processed successfully!");

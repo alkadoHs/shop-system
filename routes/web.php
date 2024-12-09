@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSalesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\Reports\AccountBalanceController;
 use App\Http\Controllers\Reports\ExpensesReportController;
 use App\Http\Controllers\Reports\LowStockAlertsController;
 use App\Http\Controllers\ReportsController;
@@ -195,6 +196,13 @@ Route::controller(GeneralSalesReportController::class)->middleware(['auth', 'ver
 Route::controller(ApiController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::get('api/products', 'products')->name('api.products');
     Route::get('api/branches', 'getUserBranches')->name('api.branches');
+});
+
+//accoount balances
+Route::controller(AccountBalanceController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('account-balances', 'index')->name('account-balances.index');
+    Route::get('account-balances/export/excel', 'exportExcel')->name('account-balances.export.excel');
+    Route::get('account-balances/export/pdf', 'exportPdf')->name('account-balances.export.pdf');
 });
 
 require __DIR__.'/auth.php';

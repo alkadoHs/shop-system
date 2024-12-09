@@ -64,4 +64,9 @@ class Branch extends Model
     {
         return $this->hasMany(PurchaseOrder::class);
     }
+
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(Account::class);
+    }
 }

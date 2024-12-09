@@ -12,7 +12,9 @@ class PaymentMethodController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render("payments/Index", ['payments' => PaymentMethod::get()]);
+        return Inertia::render("payments/Index", [
+            'payments' => PaymentMethod::withSum('accounts', 'amount')->get()
+        ]);
     }
 
     public function store(Request $request): RedirectResponse

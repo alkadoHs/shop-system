@@ -1,17 +1,13 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { Input } from "@/components/ui/input";
+import { LoadingButton } from "@/components/ui/loanding-button";
+import { ResponsiveModal, ResponsiveModalContent, ResponsiveModalFooter, ResponsiveModalHeader, ResponsiveModalTitle, ResponsiveModalTrigger } from "@/components/ui/responsoive-model";
 import { useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
+import { toast } from "sonner";
 
 export function CreatePayment() {
     const { data, setData, processing, reset, errors, post } = useForm({
@@ -22,21 +18,25 @@ export function CreatePayment() {
     const submit:FormEventHandler = (e) => {
         e.preventDefault()
 
-        post(route('payments.store'))
+        post(route('payments.store'), {
+            onSuccess: () => {
+                toast.success('Payment method and it\'s associated accounts created successfully.')
+            }
+        })
 
         reset()
     }
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
+        <ResponsiveModal>
+            <ResponsiveModalTrigger asChild>
                 <Button>Create payment</Button>
-            </DialogTrigger>
+            </ResponsiveModalTrigger>
         
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Create payment method</DialogTitle>
-                    </DialogHeader>
+                <ResponsiveModalContent className="sm:max-w-[425px]">
+                    <ResponsiveModalHeader>
+                        <ResponsiveModalTitle>Create payment method</ResponsiveModalTitle>
+                    </ResponsiveModalHeader>
                     <form onSubmit={submit} className="grid gap-4 py-4 ">
                         <div>
                             <InputLabel htmlFor="name" value="Name" />
@@ -78,11 +78,11 @@ export function CreatePayment() {
                                 message={errors.number}
                             />
                         </div>
-                    <DialogFooter>
-                        <Button disabled={processing} type="submit">Save</Button>
-                    </DialogFooter>
+                    <ResponsiveModalFooter>
+                        <LoadingButton loading={processing} type="submit">Save</LoadingButton>
+                    </ResponsiveModalFooter>
                     </form>
-                </DialogContent>
-        </Dialog>
+                </ResponsiveModalContent>
+        </ResponsiveModal>
     );
 }

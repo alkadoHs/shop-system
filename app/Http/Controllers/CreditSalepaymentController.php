@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\CreditSalepayment;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -31,6 +32,22 @@ class CreditSalepaymentController extends Controller
 
             $creditSale->update(['status' => 'paid']);
         }
+
+        // get the account if not exists create it
+        $account = Account::firstOrCreate([
+            'branch_id' => auth()->user()->branch_id,
+            'payment_method_id' => $validated['payment_method_id'],
+        ]);
+
+        $account->increment('amount', $validated['amount']);
+
+        $account->accountTransactions()->create([
+            'amount' => $validated['amount'],
+            'type' => 'deposit',
+            'description' => "CreditSalepayment #{$credit->id}",
+            'user_id' => auth()->user()->id,
+        ]);
+
 
         return back();
     }

@@ -43,7 +43,8 @@ const EditItem = ({ item }: { item: cartItem }) => {
         <form className="font-medium grid gap-2" onSubmit={save}>
             <p className="text-lg text-primary">- {item.product?.name}</p>
             <Input
-                className="text-right min-w-20"
+                className="min-w-20"
+                type="number"
                 value={data.qty}
                 onChange={(e) => setData("qty", parseFloat(e.target.value))}
             />
@@ -113,6 +114,7 @@ const EditItem = ({ item }: { item: cartItem }) => {
             <Input
                 className="text-right min-w-20"
                 value={data.discount}
+                type="number"
                 onChange={(e) => setData("discount", e.target.value as any)}
                 placeholder="Discount"
             />
