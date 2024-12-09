@@ -37,7 +37,7 @@ class CreditSalepaymentController extends Controller
         $account = Account::firstOrCreate([
             'branch_id' => auth()->user()->branch_id,
             'payment_method_id' => $validated['payment_method_id'],
-        ], ['amount' => 0]);
+        ]);
 
         $account->increment('amount', $validated['amount']);
 
