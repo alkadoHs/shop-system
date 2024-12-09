@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             $table->decimal('p_qty',10,2)->default(0)->after('qty');
-            $table->decimal('total_p_qty')->virtualAs('p_qty * price')->after('total');
+            $table->decimal('total_p_qty', 10, 2)->virtualAs('p_qty * price')->after('total');
         });
     }
 

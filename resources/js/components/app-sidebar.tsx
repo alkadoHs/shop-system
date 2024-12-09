@@ -59,6 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {
                         title: "Seller Dasboard",
                         url: route("seller-dashboard"),
+                        isVisible: user.role == "admin",
                     },
                     {
                         title: "Account balances",

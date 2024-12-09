@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('order_items', function (Blueprint $table) {
-            $table->decimal('total')->virtualAs('price * qty - discount')->change();
+            $table->decimal('total', 10, 2)->virtualAs('price * qty - discount')->change();
         });
     }
 
