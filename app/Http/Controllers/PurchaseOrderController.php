@@ -88,7 +88,7 @@ class PurchaseOrderController extends Controller
         $account = Account::firstOrCreate([
             'branch_id' => $validated['branch_id'],
             'payment_method_id' => $validated['payment_method_id'],
-        ]);
+        ], ['amount' => 0]);
 
         $account->decrement('amount', $purchaseOrder->purchaseOrderItems()->sum('total'));
 

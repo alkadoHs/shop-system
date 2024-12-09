@@ -75,7 +75,7 @@ class OrderController extends Controller
         $account = Account::firstOrCreate([
             'branch_id' => auth()->user()->branch_id,
             'payment_method_id' => $validated['payment_method_id'],
-        ]);
+        ], ['amount' => 0]);
 
         if($validated['status'] == 'paid') {
             $account->increment('amount', $order->orderItems()->sum('total'));
