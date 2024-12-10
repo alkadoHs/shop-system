@@ -58,7 +58,7 @@ export default function FormRepeater<T>({
     return (
         <div ref={parent} className="space-y-4">
             {items.map((item, index) => (
-                <div key={index} className="border rounded p-2">  
+                <div key={index} className="rounded p-2 bg-white dark:bg-transparent/60">  
                     {renderFields(item, index, handleChange)}
                     <button
                         type="button"
