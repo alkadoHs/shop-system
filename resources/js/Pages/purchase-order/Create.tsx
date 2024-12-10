@@ -230,7 +230,7 @@ const Create = ({
                                         index,
                                         handleChange
                                     ) => (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                        <div className="grid grid-cols-1 lg:grid-cols-2  gap-4">
                                             <div>
                                                 <Label htmlFor="product_id">
                                                     Product
@@ -295,59 +295,61 @@ const Create = ({
                                                     </ComboboxContent>
                                                 </ComboBox>
                                             </div>
-                                            <div>
-                                                <Label htmlFor="qty">
-                                                    Quantity
-                                                </Label>
-                                                <Input
-                                                    type="number"
-                                                    value={item.qty}
-                                                    onChange={(e) =>
-                                                        handleChange(
-                                                            index,
-                                                            "qty",
-                                                            parseInt(
-                                                                e.target.value
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-full">
+                                                    <Label htmlFor="qty">
+                                                        Quantity
+                                                    </Label>
+                                                    <Input
+                                                        type="number"
+                                                        value={item.qty}
+                                                        onChange={(e) =>
+                                                            handleChange(
+                                                                index,
+                                                                "qty",
+                                                                parseInt(
+                                                                    e.target.value
+                                                                )
                                                             )
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                            <div>
-                                                <Label htmlFor="buy_price">
-                                                    Buying Price
-                                                </Label>
-                                                <Input
-                                                    type="number"
-                                                    value={item.buy_price}
-                                                    onChange={(e) =>
-                                                        handleChange(
-                                                            index,
-                                                            "buy_price",
-                                                            parseFloat(
-                                                                e.target.value
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="w-full">
+                                                    <Label htmlFor="buy_price">
+                                                        Buying Price
+                                                    </Label>
+                                                    <Input
+                                                        type="number"
+                                                        value={item.buy_price}
+                                                        onChange={(e) =>
+                                                            handleChange(
+                                                                index,
+                                                                "buy_price",
+                                                                parseFloat(
+                                                                    e.target.value
+                                                                )
                                                             )
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                            <div>
-                                                <Label htmlFor="sale_price">
-                                                    Selling Price
-                                                </Label>
-                                                <Input
-                                                    type="number"
-                                                    value={item.sale_price}
-                                                    onChange={(e) =>
-                                                        handleChange(
-                                                            index,
-                                                            "sale_price",
-                                                            parseFloat(
-                                                                e.target.value
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="w-full">
+                                                    <Label htmlFor="sale_price">
+                                                        Selling Price
+                                                    </Label>
+                                                    <Input
+                                                        type="number"
+                                                        value={item.sale_price}
+                                                        onChange={(e) =>
+                                                            handleChange(
+                                                                index,
+                                                                "sale_price",
+                                                                parseFloat(
+                                                                    e.target.value
+                                                                )
                                                             )
-                                                        )
-                                                    }
-                                                />
+                                                        }
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     )}
